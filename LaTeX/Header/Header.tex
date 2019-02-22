@@ -1,0 +1,93 @@
+\documentclass[a4paper, fontsize=12pt, ngerman, oneside, openright]{scrreprt}
+
+% Rendering packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage[draft]{graphicx}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{svg}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{xcolor}      % use if color is used in text
+\usepackage{eurosym}
+
+
+% Page dimensions
+\usepackage[inner=3.5cm,outer=2.5cm,top=3.7cm,bottom=3.5cm]{geometry} 
+\usepackage{parskip}
+\usepackage[onehalfspacing]{setspace}
+
+% Font styling
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand\familydefault{\sfdefault}
+\usepackage[11pt]{moresize}
+
+% Tables
+\usepackage{tabularx}
+\usepackage{tabulary}
+\usepackage{longtable, lscape}
+
+% Headers
+\usepackage{scrpage2}  % header and footer for KOMA-Script
+\pagestyle{scrheadings}
+\automark[section]{chapter}
+
+% Zitate
+\usepackage[backend=biber, 
+			style=authoryear,
+			isbn=false, 
+			sorting=nyt,
+			]{biblatex}
+\usepackage[babel,german=quotes, english=british, threshold=3]{csquotes}
+\bibliography{Bibliothek/Bibliothek}
+
+\usepackage[hyperindex,breaklinks,colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+
+% Code Blöcke
+\usepackage{listings}
+%\usepackage{Header/listings-golang} % import this package after listings
+\usepackage{syntax}
+
+
+
+%\lstset{ % add your own preferences
+%	frame=single,
+%	captionpos=b,
+%	mathescape=true,
+%	basicstyle=\footnotesize\ttfamily,
+%	keywordstyle=\color{black},
+%	numbers=left,
+%	numbersep=5pt,
+%	showstringspaces=false, 
+%	stringstyle=\color{blue},
+%	tabsize=2,
+%	language=Golang % this is it !
+%}
+
+
+%pdf insert
+\usepackage{pdfpages}
+
+%zusätzliche Trennungen
+\hyphenation{Grund-ar-chi-tek-tur}
+\hyphenation{MQTT-Kom-mu-ni-ka-tions-mo-dell}
+\hyphenation{Master-Master-Replikation}
+\hyphenation{Pub-lish-er}
+\hyphenation{Pub-lish-ers}
+\hyphenation{Sub-scriber}
+\hyphenation{Sub-scribers}
+\hyphenation{Pub-lish er/Sub-scriber}
+\hyphenation{beo-bacht-bar}
+\hyphenation{Score}
+\hyphenation{Ac-knowl-edge-ment}
+\hyphenation{Ac-knowl-edge-ments}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+\usepackage{acronym}
+
