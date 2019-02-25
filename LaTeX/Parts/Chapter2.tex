@@ -12,23 +12,29 @@ He receives Chunks from the Commander and passes them to the MQTT-Agents.
 \paragraph{Varroa Instance}
 A running Varroa process in a single JVM, can be either Commander or Agent.
 
-\paragraph{MqttAgent}
+\paragraph{MQTT Agent}
 Part of the load structure, that takes chunks and executes them with MqttBee clients.
 
-\paragraph{MqttClient}
+\paragraph{MQTT Client}
 A MqttBee client used to execute the Commands that are defined in the Chunks.
 
+\paragraph{Client group}
+A group of Clients that share similar behaviour and properties.
+
 \paragraph{Command}
-A command is a particular type of MQTT-Message, for example Connect, Disconnect, Publish or Subscribe.
+%A command is a particular type of MQTT-Message, for example Connect, Disconnect, Publish or Subscribe.
 
 \paragraph{Chunk}
-A Chunk is a Collection of Information, such as which commands are to be sent to the broker as well as how many clients should perform these commands.
-Another important information, contained in the Chunk is at which rate these commands are to be executed.
+The scenario is split in Chunks by the Commander and then those Chunk are distributed to the agents.
+%A Chunk is a Collection of Information, such as which commands are to be sent to the broker as well as how many clients should perform these commands.
+%Another important information, contained in the Chunk is at which rate these commands are to be executed.
 
 \paragraph{Scenario}
-A scenario is a XML-Document which defines a sequence of stages.
+A scenario is an abstract representation of a real MQTT-Use-Case.
+It defines the topology of all participating MQTT clients and brokers.
+The scenario enables the simulation of a large amount of MQTT clients.
 
-
+%A scenario is a XML-Document which defines a sequence of stages.
 
 
 
