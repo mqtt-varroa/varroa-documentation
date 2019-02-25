@@ -1,10 +1,11 @@
 \chapter{Vision}
 The Name of our MQTT-Testing-Tool (Varroa) is inspired by the varroa mite, which is a species of mite that infects honey bee colonies.
 This name has been chosen due to it working in a similar way but instead of infesting a hive, it tries to infest a broker.
-The inspiration for this name came from the Broker \enquote{HiveMQ} and it's branding.
-The basic use-case of Varroa is testing the resilience of Brokers by creating load.
-Hereby load is defined by a number of MQTT-Clients sending different sequences of MQTT-messages to the Broker. 
+The inspiration for this name came from the broker \enquote{HiveMQ} and it's branding.
+The basic use-case of Varroa is testing the resilience of brokers by creating load.
+Hereby load is defined by a number of MQTT-clients sending different sequences of MQTT-messages to the broker. 
 Which sequences get carried out in which order is determined by a Scenario.
-A Scenario is a concept which defines the temporal execution as well as the amount of actions across a MQTT-Network.
-The motivation for the creation of this project was the lack of testability of MQTT-Systems without using large amounts of machines.
-Therefore Varroa had to be a distributed System itself, to be able to test the Limits of a MQTT-Broker without using a machine for every client.
+A scenario defines the temporal execution as well as the amount of actions across a MQTT-network and the topology of the network.
+The motivation for the creation of this project was the lack of testability of MQTT-systems.\\
+\\
+Varroa is organized as a distributed system, due to the impossibility of creating enough MQTT-clients on a single machine to overload a MQTT-broker, especially if the broker is also a distributed system.
