@@ -1,4 +1,39 @@
-\chapter{Requirements}
+\chapter{Concepts}
+
+\section{Definitions}
+
+\paragraph{Commander}
+Part of the Command and Control structure, that parses the scenario, generates chunks and distributes them to the Agents.
+
+\paragraph{Agent}
+The Agent is part of the Command and Control structure.
+He receives Chunks from the Commander and passes them to the MQTT-Agents.
+
+\paragraph{Varroa Instance}
+A running Varroa process in a single JVM, can be either Commander or Agent.
+
+\paragraph{MqttAgent}
+Part of the load structure, that takes chunks and executes them with MqttBee clients.
+
+\paragraph{MqttClient}
+A MqttBee client used to execute the Commands that are defined in the Chunks.
+
+\paragraph{Command}
+A command is a particular type of MQTT-Message, for example Connect, Disconnect, Publish or Subscribe.
+
+\paragraph{Chunk}
+A Chunk is a Collection of Information, such as which commands are to be sent to the broker as well as how many clients should perform these commands.
+Another important information, contained in the Chunk is at which rate these commands are to be executed.
+
+\paragraph{Scenario}
+A scenario is a XML-Document which defines a sequence of stages.
+
+
+
+
+
+
+\section{Requirements}
 \begin{table}
 	\begin{tabular}{| l | l | p{5cm} | l |}
 		\hline
@@ -27,7 +62,5 @@
 		\hline
 		11 & Automation capacity & Varroa should be automatable & Somewhat important \\
 		\hline
-	
-		
 	\end{tabular}
 \end{table}
