@@ -17,13 +17,14 @@ It receives Chunks from the Commander and passes them to its MQTT-Agents.
 A Varroa distributed system contains at least one Agent.
 
 \paragraph{Varroa Instance}
-A running Varroa process in a single JVM, can be either Commander or Agent.
+A Varroa Instance is a running Varroa process in a single JVM, can be either Commander or Agent.
 
 \paragraph{MQTT Agent}
-Part of the load structure, that takes chunks and executes them with MqttBee clients.
+A MQTT Agent is part of an Agent that manages MQTT clients.
+
 
 \paragraph{MQTT Client}
-A MqttBee client used to execute the Commands that are defined in the Chunks.
+A MQTT client used to execute the Commands to create load.
 
 \paragraph{Scenario}
 A scenario is an abstract representation of a real MQTT-Use-Case.
@@ -44,37 +45,62 @@ The scenario is split in Chunks by the Commander and then those Chunk are distri
 
 %A scenario is a XML-Document which defines a sequence of stages.
 
+\section{General MQTT Concepts}
+\paragraph{Broker}
+The Broker serves as an intermediary between publishers and subscribers, takes over the routing of the exchanged messages and is the central
+control authority of an MQTT-Network.
+%TODO cite Georg
+\paragraph{Client}
+A client that implements the MQTT protocol. 
+Can be publisher or subscriber.
+\paragraph{Topic}
+Topics are strings separated by slashes that do not contain wild-cards.
+Messages in a Topic are delivered to subscribers with matching Topic Filters.
+\paragraph{Topic Filter}
+A Topic Filter is a chain of strings delimited by slashes that 
+can cover one or more topics. 
+It can also contain wild-cards: a plus sign covers a single hierarchy level, a double cross selects all possible following levels.
+\paragraph{Publisher}
+Publishers are clients that produce data.
+They send messages to a specified topic on the broker.
+\paragraph{Subscriber}
+Subscribers are clients that subscribe to a subset or to all messages sent via the
+MQTT network.
+They log on to the broker and register with one or more topic filters that specify the topics whose messages they want to receive.
+%TODO cite Georg
+\paragraph{Connect}
+Connect describes the process of a Client terminating its connection to a Broker.
+\paragraph{Disconnect}
+Disconnect describes the process of a Client establishing a connection to a Broker.
 
-
-
-\section{Requirements}
-\begin{table}
-	\begin{tabular}{| l | l | p{5cm} | l |}
-		\hline
-		\rowcolor{Gray}
-		\# & Title & User Story & Importance \\
-		\hline
-		1 & Transparency & Varroa has to be comprehensible for the user. & Must have high \\
-		\hline
-		2 & 10.000.000 MQTT Clients & Varroa has to be able to generate a large amount of clients. & Must have high \\
-		\hline
-		3 & Scalability & Varroa should scale vertically with relatively low scaling costs. & Must have \\
-		\hline
-		4 & Determinism & Varroa has to work in deterministic ways, meaning it should produce the same result for a Scenario every time. & Must have \\
-		\hline
-		5 & Distributed & Varroa is a distributed System. & Must have low \\
-		\hline
-		6 & Usabillity & Varroa has to be easily usable. & Very important \\
-		\hline
-		7 & Code Quality & Varroa's coding quality should be very high. & Important\\
-		\hline
-		8 & Stability & Varroa has to run in a stable manner. & Important \\
-		\hline
-		9 & Resource efficiency & Varroa has to use the available computation and memory resources efficiently. & Important\\
-		\hline
-		10 & User / Developer Guide & Varroa needs a User / Developer Guide. & Somewhat important \\
-		\hline
-		11 & Automation capacity & Varroa should be automatable & Somewhat important \\
-		\hline
-	\end{tabular}
-\end{table}
+%\section{Requirements}
+%\begin{table}[h]
+%	\begin{tabular}{| l | l | p{5cm} | l |}
+%		\hline
+%		\rowcolor{Gray}
+%		\# & Title & User Story & Importance \\
+%		\hline
+%		1 & Transparency & Varroa has to be comprehensible for the user. & Must have high \\
+%		\hline
+%		2 & 10.000.000 MQTT Clients & Varroa has to be able to generate a large amount of clients. & Must have high \\
+%		\hline
+%		3 & Scalability & Varroa should scale vertically with relatively low scaling costs. & Must have \\
+%		\hline
+%		4 & Determinism & Varroa has to work in deterministic ways, meaning it should produce the same result for a Scenario every time. & Must have \\
+%		\hline
+%		5 & Distributed & Varroa is a distributed System. & Must have low \\
+%		\hline
+%		6 & Usabillity & Varroa has to be easily usable. & Very important \\
+%		\hline
+%		7 & Code Quality & Varroa's coding quality should be very high. & Important\\
+%		\hline
+%		8 & Stability & Varroa has to run in a stable manner. & Important \\
+%		\hline
+%		9 & Resource efficiency & Varroa has to use the available computation and memory resources efficiently. & Important\\
+%		\hline
+%		10 & User / Developer Guide & Varroa needs a User / Developer Guide. & Somewhat important \\
+%		\hline
+%		11 & Automation capacity & Varroa should be automatable & Somewhat important \\
+%		\hline
+%	\end{tabular}
+%\end{table}
