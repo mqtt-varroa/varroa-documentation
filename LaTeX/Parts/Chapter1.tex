@@ -9,3 +9,8 @@ A scenario defines the temporal execution as well as the amount of actions acros
 The motivation for the creation of this project was the lack of testability of MQTT-systems.\\
 \\
 Varroa is organized as a distributed system, due to the impossibility of creating enough MQTT-clients on a single machine to overload a MQTT-broker, especially if the broker is also a distributed system.
+Its own architecture is loosely based on the concepts of MQTT, whereas there are two main parts of the system: the Agent and the Commander.
+The Commander is the central unit that passes the data of the Scenario to the Agents.
+In contrast the Agents processes the passed data and creates MQTT-clients to start the testing process.
+Due to the distributed Nature of Varroa there were alot of architectural challenges, for example the even distribution of load across the agents.
+
