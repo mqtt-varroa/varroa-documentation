@@ -4,12 +4,17 @@ To understand the workings of Varroa, we will have to take a look at the differe
 
 \section{Definitions}
 
+\paragraph{Varroa Distributed System}
+An orchestration of multiple Varroa Instances consisting of one Commander and at least one Agent.
+
 \paragraph{Commander}
-Part of the Command and Control structure, that parses the scenario, generates chunks and distributes them to the Agents.
+The Commander is a part of the Varroa Distributed System, that parses the scenario, generates chunks and distributes them to the Agents.
+Only one Commander exists in a Varroa distributed system.
 
 \paragraph{Agent}
-The Agent is part of the Command and Control structure.
-He receives Chunks from the Commander and passes them to the MQTT-Agents.
+The Agent is part of the Varroa Distributed System.
+It receives Chunks from the Commander and passes them to its MQTT-Agents.
+A Varrao distributed system contains at least one Agent.
 
 \paragraph{Varroa Instance}
 A running Varroa process in a single JVM, can be either Commander or Agent.
@@ -20,21 +25,22 @@ Part of the load structure, that takes chunks and executes them with MqttBee cli
 \paragraph{MQTT Client}
 A MqttBee client used to execute the Commands that are defined in the Chunks.
 
+\paragraph{Scenario}
+A scenario is an abstract representation of a real MQTT-Use-Case.
+It defines the topology of all participating MQTT clients and brokers.
+The scenario enables the simulation of a large amount of MQTT clients.
+
 \paragraph{Client group}
 A group of Clients that share similar behaviour and properties.
 
 \paragraph{Command}
+A command is an abstract representation of a work step that must be executed by a MQTT client.
 %A command is a particular type of MQTT-Message, for example Connect, Disconnect, Publish or Subscribe.
 
 \paragraph{Chunk}
 The scenario is split in Chunks by the Commander and then those Chunk are distributed to the agents.
 %A Chunk is a Collection of Information, such as which commands are to be sent to the broker as well as how many clients should perform these commands.
 %Another important information, contained in the Chunk is at which rate these commands are to be executed.
-
-\paragraph{Scenario}
-A scenario is an abstract representation of a real MQTT-Use-Case.
-It defines the topology of all participating MQTT clients and brokers.
-The scenario enables the simulation of a large amount of MQTT clients.
 
 %A scenario is a XML-Document which defines a sequence of stages.
 
