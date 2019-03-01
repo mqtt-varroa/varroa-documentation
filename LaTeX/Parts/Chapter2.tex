@@ -5,7 +5,7 @@ To understand the workings of Varroa, we will have to take a look at the differe
 \section{Definitions}
 
 \paragraph{Varroa Distributed System}
-An orchestration of multiple Varroa Instances consisting of one Commander and at least one Agent.
+An orchestration of multiple Varroa instances consisting of one Commander and at least one Agent.
 
 \paragraph{Commander}
 The Commander is a part of the Varroa Distributed System, that parses the scenario, generates chunks and distributes them to the Agents.
@@ -17,7 +17,7 @@ It receives Chunks from the Commander and passes them to its MQTT-Agents.
 A Varroa distributed system contains at least one Agent.
 
 \paragraph{Varroa Instance}
-A Varroa Instance is a running Varroa process in a single JVM, can be either Commander or Agent.
+A Varroa instance is a running Varroa process in a single JVM, can be either Commander or Agent.
 
 \paragraph{MQTT Agent}
 A MQTT Agent is part of an Agent that manages MQTT clients.
@@ -47,31 +47,30 @@ The scenario is split in Chunks by the Commander and then those Chunk are distri
 
 \section{General MQTT Concepts}
 \paragraph{Broker}
-The Broker serves as an intermediary between publishers and subscribers, takes over the routing of the exchanged messages and is the central
-control authority of an MQTT-Network.
+The Broker serves as an intermediary between publishers and subscribers.
+It takes over the routing of the exchanged MQTT messages and is the central control authority of a MQTT Network.
 %TODO cite Georg
 \paragraph{Client}
 A client that implements the MQTT protocol. 
-Can be publisher or subscriber.
 \paragraph{Topic}
 Topics are strings separated by slashes that do not contain wild-cards.
-Messages in a Topic are delivered to subscribers with matching Topic Filters.
+Messages published with Topic are delivered to subscribers that have registered matching Topic Filters.
 \paragraph{Topic Filter}
 A Topic Filter is a chain of strings delimited by slashes that 
 can cover one or more topics. 
 It can also contain wild-cards: a plus sign covers a single hierarchy level, a double cross selects all possible following levels.
 \paragraph{Publisher}
 Publishers are clients that produce data.
-They send messages to a specified topic on the broker.
+They send messages with a specific topic to the broker.
 \paragraph{Subscriber}
 Subscribers are clients that subscribe to a subset or to all messages sent via the
 MQTT network.
 They log on to the broker and register with one or more topic filters that specify the topics whose messages they want to receive.
 %TODO cite Georg
 \paragraph{Connect}
-Connect describes the process of a Client terminating its connection to a Broker.
-\paragraph{Disconnect}
 Disconnect describes the process of a Client establishing a connection to a Broker.
+\paragraph{Disconnect}
+Connect describes the process of a Client terminating its connection to a Broker.
 
 %\section{Requirements}
 %\begin{table}[h]
