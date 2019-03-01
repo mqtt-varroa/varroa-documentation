@@ -1,0 +1,30 @@
+\chapter{Execution}
+\section{Configuration}
+
+\subsection{Commander}
+\begin{lstlisting}[caption={Commander XML configuration}, captionpos=b, label={lst:commanderConfig}, language=XML]
+<varroa>
+    <commander>
+        <bind-port>12345</bind-port>
+        <amount-agents>3</amount-agents>
+    </commander>
+</varroa>
+\end{lstlisting}
+\begin{itemize}
+	\item \textbf{bind-port:} specifies the port the commander binds to for waiting for Agent connections
+	\item \textbf{amount-agents:} specifies the amount of Agents that connect to the Commander
+\end{itemize}
+
+\subsection{Agent}
+\begin{lstlisting}[caption={Agent XML configuration}, captionpos=b, label={lst:agentConfig}, language=XML]
+<varroa>
+    <agent>
+        <commander-port>12345</commander-port>
+        <local-port>23458</local-port>
+    </agent>
+</varroa>
+\end{lstlisting}
+\begin{itemize}
+	\item \textbf{commander-port:} specifies the port of the Commander
+	\item \textbf{local-port:} specifies the local port the Agent uses for the outgoing connection to the Commander %TODO must be different on every Agent
+\end{itemize}
