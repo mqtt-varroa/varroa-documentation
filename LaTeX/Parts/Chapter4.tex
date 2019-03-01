@@ -1,1 +1,104 @@
 \chapter{Scenario Concept}
+
+%\begin{lstlisting}[caption={Implementierung des Trainierens der Markov-Chain}, captionpos=b, label={lst:train}, language=XML]
+% <!-- -->
+%\end{lstlisting}
+
+
+\begin{lstlisting}[caption={XML Definition of the Scenario}, captionpos=b, label={lst:scenario}, language=XML]
+<scenario>
+	<broker id="b1">
+		<!-- definition broker parameters -->
+	</broker>
+	
+	<clientGroups>
+		<!-- definition of client groups -->
+	</clientGroups>
+	
+	<topicGroups>
+		<!-- definition of topic groups -->
+	</topicGroups>
+	
+	<subscriptions>
+		<!-- definition of subscriptions -->
+	</subscriptions>
+	
+	<stages>
+		<!-- definition of stages -->
+	</stages>
+</scenario>
+\end{lstlisting}
+
+\section{Broker}
+\begin{lstlisting}[caption={XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
+<scenario>
+	<broker id="b1">
+		<address>broker.hivemq.com</address>
+		<port>1883</port>
+	</broker>
+</broker>
+\end{lstlisting}
+
+\section{Client Groups}
+\begin{lstlisting}[caption={XML defininition of Client Groups}, captionpos=b, label={lst:clientGroups}, language=XML]
+<scenario>
+	<clientGroups>
+		<clientGroup id="cg1">
+			<clientIdPattern>A[1-9]+</clientIdPattern>
+			<count>100</count>
+			<mqtt>
+				<version>5</version>
+			</mqtt>
+		</clientGroup>
+
+		<!-- definiton of more client groups -->
+</scenario>
+\end{lstlisting}
+
+\section{Topic Groups}
+\begin{lstlisting}[caption={XMl definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
+<scenario>
+	<topicGroups>
+		<topicGroup id="tg1">
+			<topicNamePattern>topic/subtopic-[0-9]</topicNamePattern>
+			<count>10</count>
+		</topicGroup>
+
+		<!-- definition of more topic groups -->
+	</topicGroups>
+</scenario>
+\end{lstlisting}
+
+\section{Subscriptions}
+\begin{lstlisting}[caption={XMl definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
+<scenario>
+	<subscriptions>
+		<subscription id="sub-1">
+			<topicGroup>tg1</topicGroup>
+			<wildCard>false</wildCard>
+		</subscription>
+
+		<!-- definition of more subscriptions -->
+	</subscriptions>
+</scenario>
+\end{lstlisting}
+
+\section{Stages}
+\begin{lstlisting}[caption={XMl definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
+<scenario>
+	<stages>
+		<stage id="s1" duration="10s">
+			<lifecycle id="s1.l1" clientGroupId="cg1">
+				<connect broker="b1"/>
+				<subscribe subscription="sub-1"/>
+			</lifecycle>
+	
+			<!-- definition of more lifecycles -->
+		</stage>
+	
+		<!-- definition of more stages -->
+	</stages>
+</scenario>
+\end{lstlisting}
+
+
