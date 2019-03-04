@@ -74,7 +74,25 @@ When defining a client group the user needs to specify:
 	\item \textbf{mqtt:} MQTT properties of the MQTT clients. (see \ref{sec:mqttProperties})
 \end{itemize}
 
-\section{Topic Groups}
+\subsection{MQTT Properties}\label{sec:mqttProperties}
+\begin{lstlisting}[caption={XMl definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
+<mqtt>
+	<version>5</version>
+<\mqtt>
+\end{lstlisting}
+%	<cleanStart>true</cleanStart>
+%	<sessionExpiryInterval>0x0</sessionExpiryInterval>
+%</mqtt>	
+%\end{lstlisting}
+The following MQTT properties can be defined:
+\begin{itemize}
+	\item \textbf{version (requrired):} the MQTT version this Client Group implements.
+	%TODO \item \textbf{cleanStart (optional):} 
+	%TODO \item \textbf{sessionExpiryInterval (optional):}
+\end{itemize}
+
+
+\section{Topic Groups} \label{sec:topicGroups}
 \begin{lstlisting}[caption={XMl definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
 <scenario>
 	<topicGroups>
@@ -96,7 +114,7 @@ When defining a Topic Group the user needs to specify:
 	\item \textbf{count:} the amount of MQTT topics in the topic group.
 \end{itemize}
 
-\section{Subscriptions}
+\section{Subscriptions} \label{sec:subscriptions}
 \begin{lstlisting}[caption={XMl definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
 <scenario>
 	<subscriptions>
@@ -127,6 +145,9 @@ or
 	\item \textbf{topicGroup:} reference to a Topic Group.
 	\item \textbf{wildCard:} whether the Subscription contains a wild card. 
 \end{itemize}
+
+\section{Wait Patterns} \label{sec:waitPatterns}
+%TODO 
 
 \section{Stages}
 \begin{lstlisting}[caption={XMl definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
@@ -162,28 +183,69 @@ A Lifecycle contains an amount of Commands (see \ref{sec:commands}). To define a
 \section{Commands}\label{sec:commands}
 \subsection{connect}
 \begin{lstlisting}[caption={XMl definition of a connect command}, captionpos=b, label={lst:connect}, language=XML]
-<connect broker="b1"/>
+<connect broker="b1" expectedDuration="10s"/>
 \end{lstlisting}
+A connect command can have the following parameters:
+\begin{itemize}
+	\item \textbf{broker (required):} the broker the Client Group connects to.
+	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+\end{itemize}
+
 \subsection{disconnect}
 \begin{lstlisting}[caption={XMl definition of a disconnect command}, captionpos=b, label={lst:disconnect}, language=XML]
 <disconnect/>
 \end{lstlisting}
+A disconnect command does not have any parameters.
+The Client Group disconnects from the broker it is connected to.
+
 \subsection{publish}
 \begin{lstlisting}[caption={XMl definition of a publish commmand}, captionpos=b, label={lst:publish}, language=XML]
 %TODO 
 \end{lstlisting}
+A publish command has the following parameters:
+\begin{itemize}
+	\item \textbf{topicGroup (required):} references the Topic Group the message is published to (see \ref{sec:topicGroups}). 
+	\item \textbf{payload (optional):} the payload that is sent within the message.
+	\item \textbf{payloadGenerator (optional):} the generator for the payload that is sent within the message.
+	\item \textbf{qos (optional):} the quality of service.
+	\item \textbf{waitForACK (optional):} whether the Client Group waits for the ACK from the broker.
+	\item \textbf{count (required when a rate is given):} the amount of publishes.
+	\item \textbf{rate (optional):} the rate at witch the publishes are executed.
+	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+\end{itemize}
+
 \subsection{subscribe}
 \begin{lstlisting}[caption={XMl definition of a subscibe command}, captionpos=b, label={lst:subscirbe}, language=XML]
 <subscribe subscription="sub1" qos="1"/>
 \end{lstlisting}
+A subscribe command has the following parameters:
+\begin{itemize}
+	\item \textbf{subscription (required):} references the subscription to be executed (see \ref{sec:subscriptions}).
+	\item \textbf{qos (optional):} the quality of service.
+	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+\end{itemize}
+
 \subsection{unsubscribe}
 \begin{lstlisting}[caption={XMl definition of a unsubscibe command}, captionpos=b, label={lst:unsubscirbe}, language=XML]
 <unsubscribe subscription="sub1"/>
 \end{lstlisting}
+A unsubscribe command has the following parameters:
+\begin{itemize}
+	\item \textbf{subscription (required):} references the subscription to be terminated (see \ref{sec:subscriptions}).
+	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+\end{itemize}
+
 \subsection{wait}
 \begin{lstlisting}[caption={XMl definition of a wait command}, captionpos=b, label={lst:wait}, language=XML]
 <wait topicGroup="tg1" duration="10s"/>
 \end{lstlisting}
+A wait command has the following parameter:
+\begin{itemize}
+	\item \textbf{waitPattern (optional):} references the wait pattern (see \ref{sec:waitPatterns}) to waited for.
+	\item \textbf{duration (optinal):} the amount of time to wait.
+	\item \textbf{expectedDuration: (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+\end{itemize}
+
 \subsection{for}
 \begin{lstlisting}[caption={XMl definition of a for command}, captionpos=b, label={lst:for}, language=XML]
 <for times="2">
@@ -191,8 +253,20 @@ A Lifecycle contains an amount of Commands (see \ref{sec:commands}). To define a
 	<disconnect/>
 </for>
 \end{lstlisting}
+A for command can contain other commands, it has the following parameters:
+\begin{itemize}
+	\item \textbf{times:} the amount of times the inner commands are executed.
+	\item \textbf{rate:} the rate at which the publishes are executed.
+	\item \textbf{expectedDuration: (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+\end{itemize}
 
-\section{MQTT Properties}\label{sec:mqttProperties}
-
+\subsection{rampUp}
+\begin{lstlisting}[caption={XMl definition of a rampUp command}, captionpos=b, label={lst:rampUp}, language=XML]
+<rampUp duration="10s"/>	
+\end{lstlisting}
+\begin{itemize}
+	\item \textbf{duration:} the amount of time the rampUp takes.
+\end{itemize}
+%TODO specify rampUp behaviour
 
 
