@@ -29,7 +29,7 @@
 </scenario>
 \end{lstlisting}
 
-A Varroa test is the execution of a user defined Scenario, that is marked down in a XML file.
+A Varroa test is the execution of a user defined Scenario, which is specified in a XML file.
 To define a valid scenario the user needs to define the topology of the Scenario and the behaviour of its components.
 
 \section{Broker}
@@ -41,10 +41,10 @@ To define a valid scenario the user needs to define the topology of the Scenario
 	</broker>
 </broker>
 \end{lstlisting}
-The broker is the central component whose resilience is tested by the Scenario.
-The user needs to define:
+The broker is the central component whose performance and stress resistance is tested by the Scenario.
+For this the user needs to define:
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the broker
+	\item \textbf{id:} the identifier to reference the broker.
 	\item \textbf{address:} the address of the broker can either be a IPv4-Address or a Fully-Qualified-Domain-Name.
 	\item \textbf{port:} the port on which the broker is waiting for connections.
 \end{itemize}
@@ -68,9 +68,9 @@ A Scenario contains a number of Client Groups.
 A Client Group is a specific amount of MQTT Clients that share the exact same behaviour.
 When defining a client group the user needs to specify:
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the Client Group 
-	\item \textbf{clientIdPattern:} a regular expression to create individual names for every MQTT client in the Client Group
-	\item \textbf{count:} the amount of MQTT clients contained in the Client Group
+	\item \textbf{id:} the identifier to reference the Client Group.
+	\item \textbf{clientIdPattern:} a regular expression to create individual names for every MQTT client in the Client Group.
+	\item \textbf{count:} the amount of MQTT clients contained in the Client Group.
 	\item \textbf{mqtt:} MQTT properties of the MQTT clients. (see \ref{sec:mqttProperties})
 \end{itemize}
 
@@ -91,9 +91,9 @@ A Scenario contains a number of Topic Groups.
 A Topic Group is a specific amount of MQTT Topics whose names are created from the same regular expression.
 When defining a Topic Group the user needs to specify:
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the Topic Group
-	\item \textbf{topicNamePattern:} a regular expression to create individual topic names for every member of the Topic Group
-	\item \textbf{count:} the amount of MQTT topics in the topic group
+	\item \textbf{id:} the identifier to reference the Topic Group.
+	\item \textbf{topicNamePattern:} a regular expression to create individual topic names for every member of the Topic Group.
+	\item \textbf{count:} the amount of MQTT topics in the topic group.
 \end{itemize}
 
 \section{Subscriptions}
@@ -114,18 +114,18 @@ When defining a Topic Group the user needs to specify:
 </scenario>
 \end{lstlisting}
 A Scenario can contain Subscriptions.
-A Subscription defines a subscription behaviour that Client Groups can implement in their Subscribe Commands.
+A Subscription defines a certain subscription behaviour that Client Groups can implement in their Subscribe Commands.
 A Subscription can either target Topics that match a specific Topic Filter or a referenced Topic Group.
 To define a Topic Group the user needs to specify:
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the Subscription
-	\item \textbf{topicFilter:} the Topic Filter to target specific Topics
+	\item \textbf{id:} the identifier to reference the Subscription.
+	\item \textbf{topicFilter:} the Topic Filter to target specific Topics.
 \end{itemize}
 or
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the Subscription
-	\item \textbf{topicGroup:} reference to a Topic Group
-	\item \textbf{wildCard:} whether the Subscription is wild-carded 
+	\item \textbf{id:} the identifier to reference the Subscription.
+	\item \textbf{topicGroup:} reference to a Topic Group.
+	\item \textbf{wildCard:} whether the Subscription contains a wild card. 
 \end{itemize}
 
 \section{Stages}
@@ -144,19 +144,19 @@ or
 	</stages>
 </scenario>
 \end{lstlisting}
-A Scenario is divided into Stages.
-Those Stages are executed sequential in the order they are specified in the XML document.
-A Stage contains a number of Lifecycles, those specify the behaviour of Client Groups in the stage.
-Lifecylces within a stage are executed in parallel.
+A Scenario is divided into one or more Stages.
+These Stages are executed in sequential order as they are specified in the XML document.
+A Stage contains a number of Lifecycles, which specify the behaviour of Client Groups in the stage.
+Lifecycles within a stage are executed in parallel.
 To define a stage the user needs to specify:
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the Stage
-	\item \textbf{duration:} the duration of the stage %TODO what happens if the execution takes longer
+	\item \textbf{id:} the identifier to reference the Stage.
+	\item \textbf{duration:} the duration of the stage. %TODO what happens if the execution takes longer
 \end{itemize}
 A Lifecycle contains an amount of Commands (see \ref{sec:commands}). To define a Lifecycle the user needs to specify:
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the Lifecycle
-	\item \textbf{clientGroupId:} the Client Group that executes this Lifecycle
+	\item \textbf{id:} the identifier to reference the Lifecycle.
+	\item \textbf{clientGroupId:} the Client Group that executes this Lifecycle.
 \end{itemize}
 
 \section{Commands}\label{sec:commands}
