@@ -153,7 +153,7 @@ or
 \begin{lstlisting}[caption={XMl definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
 <scenario>
 	<stages>
-		<stage id="s1" duration="10s">
+		<stage id="s1" expectedDuration="10s">
 			<lifecycle id="s1.l1" clientGroupId="cg1">
 				<!-- definition of commands -->
 			</lifecycle>
@@ -172,7 +172,7 @@ Lifecycles within a stage are executed in parallel.
 To define a stage the user needs to specify:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the Stage.
-	\item \textbf{duration:} the duration of the stage. %TODO what happens if the execution takes longer
+	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting
 \end{itemize}
 A Lifecycle contains an amount of Commands (see \ref{sec:commands}). To define a Lifecycle the user needs to specify:
 \begin{itemize}
