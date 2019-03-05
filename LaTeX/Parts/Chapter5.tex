@@ -26,6 +26,27 @@ Every Agent holds a number of MQTT Agents and each MQTT Agent manages one MQTT C
 	\end{center}
 \end{figure}
 
+\section{Chunk Concept}
+\subsection{Definition}
+A chunk is a work package of the scenario execution designed to be distributed from the Commander to its Agents.
+It is then handled by the Agent it is distributed to.
+The Agent now creates or uses existing MQTT Agents to execute the Chunk.
+It contains:
+\begin{itemize}
+	\item \textbf{clientCountInChunk}: the maximum amount of clients a chunk can represent.
+	\item \textbf{clientOffset}: starting index of the clients contained in the chunk.
+	\item \textbf{clientGroupId}: 
+	\item \textbf{clientGroupInformation}: contains information concerning the Client Group and MQTT-specific properties.
+	\item \textbf{stageDuration}: the duration of the stage this chunk belongs to.
+	\item \textbf{lifecycleRate}: the rate of execution of the commands contained in the chunk.
+	\item \textbf{commands}: a list of commands that are executed by the clients in the chunk.
+\end{itemize}
+Due to the distributed nature of Varroa it was necessary to be able to spread the information contained in the scenario.
+To secure a deterministic distribution of a scenario's data the chunks had to be evenly spread across the initialized Agents.
+To ensure this determinism a mechanism was introduced combining a round-robin selection of chunks with a handshake mechanism of the agents.
+
+
+
 \section{Chunk Distribution}
 \begin{figure}[h]
 	\begin{center}
