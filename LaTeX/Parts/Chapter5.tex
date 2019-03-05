@@ -38,16 +38,15 @@ It contains:
 	\item \textbf{clientGroupId}: 
 	\item \textbf{clientGroupInformation}: contains information concerning the Client Group and MQTT-specific properties.
 	\item \textbf{stageDuration}: the duration of the stage this chunk belongs to.
-	\item \textbf{lifecycleRate}: the rate of execution of the commands contained in the chunk.
+	\item \textbf{lifecycleRate}: the rate at which the contained commands are executed.
 	\item \textbf{commands}: a list of commands that are executed by the clients in the chunk.
 \end{itemize}
-Due to the distributed nature of Varroa it was necessary to be able to spread the information contained in the scenario.
-To secure a deterministic distribution of a scenario's data the chunks had to be evenly spread across the initialized Agents.
-To ensure this determinism a mechanism was introduced combining a round-robin selection of chunks with a handshake mechanism of the agents.
-
-
+%Due to the distributed nature of Varroa it was necessary to be able to spread the information contained in the scenario.
+%To secure a deterministic distribution of a scenario's data the chunks had to be evenly spread across the initialized Agents.
 
 \section{Chunk Distribution}
+To secure a deterministic execution of a scenario the every chunk needs to be distributed to the same Agent in every execution of the scenario.
+To ensure this determinism a mechanism was introduced combining a round-robin selection of chunks with a handshake mechanism of the agents.
 \begin{figure}[h]
 	\begin{center}
 	\includegraphics[scale=1]{Resources/PDF/ChunkDistribution}
