@@ -18,6 +18,8 @@ Every Agent holds a number of MQTT Agents and each MQTT Agent manages one MQTT C
 \newpage
 
 \section{Chunk Distribution}
+To secure a deterministic execution of a scenario the every chunk needs to be distributed to the same Agent in every execution of the scenario.
+To ensure this determinism a mechanism was introduced combining a round-robin selection of chunks with a handshake mechanism of the agents.
 \begin{figure}[h]
 	\begin{center}
 	\includegraphics[scale=1]{Resources/PDF/ChunkDistribution}
