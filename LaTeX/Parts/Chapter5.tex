@@ -25,7 +25,7 @@ It contains:
 \begin{itemize}
 	\item \textbf{clientCountInChunk}: the maximum amount of clients a chunk can represent.
 	\item \textbf{clientOffset}: starting index of the clients contained in the chunk.
-	\item \textbf{clientGroupId}: 
+	\item \textbf{clientGroupId}: identfier for the Client Group contain in the chunk.
 	\item \textbf{clientGroupInformation}: contains information concerning the Client Group and MQTT-specific properties.
 	\item \textbf{stageDuration}: the duration of the stage this chunk belongs to.
 	\item \textbf{lifecycleRate}: the rate at which the contained commands are executed.
@@ -35,29 +35,35 @@ It contains:
 %To secure a deterministic distribution of a scenario's data the chunks had to be evenly spread across the initialized Agents.
 
 \subsection{Chunk Distribution}
-To secure a deterministic execution of a scenario the every chunk needs to be distributed to the same Agent in every execution of the scenario.
-To ensure this determinism a mechanism was introduced combining a round-robin selection of chunks with a handshake mechanism of the agents.
 \begin{figure}[h]
 	\begin{center}
-	\includegraphics[scale=1]{Resources/PDF/ChunkDistribution}
+	\includegraphics[scale=1.2]{Resources/PDF/ChunkDistribution}
 	\caption{Distribution of a Chunk}
 	\label{pic:ChunkDistribution}
 	\end{center}
 \end{figure}
+To secure a deterministic execution of a scenario the every chunk needs to be distributed to the same Agent in every execution of the scenario.
+To ensure this determinism a round-robin distribution of the scenario's chunks combined with a handshake mechanism is used:
+In accordance to figure \ref{pic:ChunkDistribution} the Commander tries to distribute a Chunk to an Agent who then answers with an accept or reject.
+If the Agent rejects the Chunk (see figure \ref{pic:RejectHandshake}) the Commander then tries to distribute the Chunk to the next Agent in the same manner until one Agent accepts.
+When accepting the Chunk the Agents waits for a Start Message from the Commander and upon receiving it the Agent starts executing the Chunk.
+After a successful execution of the Chunk the Agents sends a Finished Message to the Commander (see figure \ref{pic:AcceptHandshake}).
 
-\section{Chunk Handshake}
-\begin{figure}[h]
-	\begin{center}
-	\includegraphics[scale=1]{Resources/PDF/ChunkAcceptedHandshake}
-	\caption{Chunk Handshake with Accept}
-	\label{pic:ChunkAcceptedHandshake}
-	\end{center}
-\end{figure}
 
-\begin{figure}[h]
-	\begin{center}
-	\includegraphics[scale=1]{Resources/PDF/ChunkRejectHandshake}
-	\caption{Chunk Handshake with Reject}
-	\label{pic:ChunkRejectHandshake}
-	\end{center}
-\end{figure}
+\begin{minipage}[ht]{0.48\textwidth}
+	\includegraphics[width=\textwidth]{Resources/PDF/ChunkAcceptedHandshake}
+\end{minipage}
+\hfill
+\begin{minipage}[ht]{0.48\textwidth}
+	\includegraphics[width=\textwidth]{Resources/PDF/ChunkRejectHandshake}
+\end{minipage}
+
+\begin{minipage}[ht]{0.48\textwidth}
+	\captionof{figure}{Chunk Handshake with Accept}
+	\label{pic:AcceptHandshake}
+\end{minipage}
+\hfill
+\begin{minipage}[ht]{0.48\textwidth}
+	\captionof{figure}{Chunk Handshake with Reject}
+	\label{pic:RejectHandshake}
+\end{minipage}
