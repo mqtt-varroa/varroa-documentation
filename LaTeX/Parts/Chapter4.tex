@@ -200,13 +200,22 @@ The Client Group disconnects from the broker it is connected to.
 
 \subsection{publish}
 \begin{lstlisting}[caption={XMl definition of a publish commmand}, captionpos=b, label={lst:publish}, language=XML]
-%TODO 
+<publish topicGroup="tg1" count="10" message="message" rate="100/1s"/>
+<publish topicGroup="tg1" count="10" payloadGenerator="randomAlphaNumeric"/>
+<publish topicGroup="tg1" count="10" payloadGenerator="{{clientId}} {{topic}}"/>
+<publish topicGroup="tg1" count="10" message="message" payloadGenerator="payload[0-9]{10}"/>
 \end{lstlisting}
 A publish command has the following parameters:
 \begin{itemize}
 	\item \textbf{topicGroup (required):} references the Topic Group the message is published to (see \ref{sec:topicGroups}). 
-	\item \textbf{payload (optional):} the payload that is sent within the message.
-	\item \textbf{payloadGenerator (optional):} the generator for the payload that is sent within the message.
+	\item \textbf{message (optional):} the argument for the payloadGenerator.
+	\item \textbf{payloadGenerator (optional):} the generator for the payload that is sent within the message. The following options exist:
+		\begin{itemize}
+			\item \textbf{randomAlphaNumeric:} generates random alpha numeric strings as payloads.
+			\item \textbf{static (default):} uses the payload parameter as payload.
+			\item \textbf{mustace:} generates payloads bases on mustache.js templates.
+			\item \textbf{regex:} generates payloads based on a regex pattern.
+		\end{itemize}
 	\item \textbf{qos (optional):} the quality of service.
 	\item \textbf{waitForACK (optional):} whether the Client Group waits for the ACK from the broker.
 	\item \textbf{count (required when a rate is given):} the amount of publishes.
