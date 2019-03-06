@@ -1,7 +1,9 @@
 \chapter{Execution}
+To start a Varroa test the User needs to start a Commander and at least one Agent.
+The Agents periodically try to establish a connection to the commander.
+When all Agents are connected the execution of the scenario starts.
 
-\section{Stating}
-\subsection{Commander}
+\section{Commander}
 \begin{figure}[H]
 	\begin{center}
 	\includegraphics[scale=0.9]{Resources/PDF/CommanderStates}
@@ -9,6 +11,15 @@
 	\label{pic:CommanderStates}
 	\end{center}
 \end{figure}
+After starting a Varroa instance that is configured as a Commander it waits for the agents in the network to connect.
+Until all agents are successfully connected the Commander remains in the 'Waiting for Agents' state.
+As the last missing agent connects the Commander switches its state to 'All Agents Connected'.
+Then it begins to parse the Scenario's XML file and within finishing it starts to distribute the Scenario's first stage among the agents.
+In doing so the Commander changes its state to 'Scenario in Progress'.
+It remains in this stage until all stages are executed successfully and then transfers its state into 'Scenario Finished'.
+Contrary to this case a faulty execution of a stage results in the failure of the whole Scenario, logically the Commanders state is now 'Scenario Failed'.
+Regardless of success or failure the Commander terminates.
+To allow better comprehension figure \ref{pic:CommanderStates} illustrates this process.
 
 \subsection{Agent}
 \begin{figure}[H]
