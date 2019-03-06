@@ -1,6 +1,6 @@
 \chapter{Execution}
 To start a Varroa test the User needs to start a Commander and at least one Agent.
-The Agents periodically try to establish a connection to the commander.
+The Agents periodically try to establish a connection to the Commander.
 When all Agents are connected the execution of the scenario starts.
 
 \section{Commander}
@@ -11,7 +11,7 @@ When all Agents are connected the execution of the scenario starts.
 	\label{pic:CommanderStates}
 	\end{center}
 \end{figure}
-After starting a Varroa instance that is configured as a Commander it waits for the agents in the network to connect.
+After starting a Varroa instance that is configured as a Commander (see \ref{sec:commanderConfig}) it waits for the agents in the network to connect.
 Until all agents are successfully connected the Commander remains in the 'Waiting for Agents' state.
 As the last missing agent connects the Commander switches its state to 'All Agents Connected'.
 Then it begins to parse the Scenario's XML file and within finishing it starts to distribute the Scenario's first stage among the agents.
@@ -29,9 +29,16 @@ To allow better comprehension figure \ref{pic:CommanderStates} illustrates this 
 	\label{pic:AgentStates}
 	\end{center}
 \end{figure}
+Upon starting a Varroa instance as an Agent it tries to connect to the configured Commander (see \ref{sec:agentConfig}).
+It periodically attempts to establish the connection until it succeeds.
+Then it waits for incoming Chunks from the Commander and executes them, implementing the handshake protocol introduced in \ref{sec:chunkDistribution}.
+It does so until it loses the connection to the commander.
+In contrast to the Commander the Agents life-cycle does not stop after the execution of a Scenario.
+Because of this the user only needs to restart the Commander to execute another Scenario.
+For better understanding of the temporal processes the just explained concepts are illustrated in figure \ref{pic:AgentStates}.
 
 \section{Configuration}
-\subsection{Commander}
+\subsection{Commander}\label{sec:commanderConfig}
 \begin{lstlisting}[caption={Commander XML configuration}, captionpos=b, label={lst:commanderConfig}, language=XML]
 <varroa>
     <commander>
@@ -47,7 +54,7 @@ To allow better comprehension figure \ref{pic:CommanderStates} illustrates this 
 	\item \textbf{amount-agents:} specifies the amount of Agents that connect to the Commander
 \end{itemize}
 
-\subsection{Agent}
+\subsection{Agent}\label{sec:agentConfig}
 \begin{lstlisting}[caption={Agent XML configuration}, captionpos=b, label={lst:agentConfig}, language=XML]
 <varroa>
     <agent>
