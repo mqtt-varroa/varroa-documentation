@@ -75,7 +75,7 @@ When defining a client group the user needs to specify:
 \end{itemize}
 
 \subsection{MQTT Properties}\label{sec:mqttProperties}
-\begin{lstlisting}[caption={XMl definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
+\begin{lstlisting}[caption={XML definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
 <mqtt>
 	<version>5</version>
 <\mqtt>
@@ -93,7 +93,7 @@ The following MQTT properties can be defined:
 
 
 \section{Topic Groups} \label{sec:topicGroups}
-\begin{lstlisting}[caption={XMl definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
+\begin{lstlisting}[caption={XML definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
 <scenario>
 	<topicGroups>
 		<topicGroup id="tg1">
@@ -115,7 +115,7 @@ When defining a Topic Group the user needs to specify:
 \end{itemize}
 
 \section{Subscriptions} \label{sec:subscriptions}
-\begin{lstlisting}[caption={XMl definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
+\begin{lstlisting}[caption={XML definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
 <scenario>
 	<subscriptions>
 		<subscription id="sub-1">
@@ -150,7 +150,7 @@ or
 %TODO 
 
 \section{Stages}
-\begin{lstlisting}[caption={XMl definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
+\begin{lstlisting}[caption={XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
 <scenario>
 	<stages>
 		<stage id="s1" expectedDuration="10s">
@@ -182,7 +182,7 @@ A Lifecycle contains an amount of Commands (see \ref{sec:commands}). To define a
 
 \section{Commands}\label{sec:commands}
 \subsection{connect}
-\begin{lstlisting}[caption={XMl definition of a connect command}, captionpos=b, label={lst:connect}, language=XML]
+\begin{lstlisting}[caption={XML definition of a connect command}, captionpos=b, label={lst:connect}, language=XML]
 <connect broker="b1" expectedDuration="10s"/>
 \end{lstlisting}
 A connect command can have the following parameters:
@@ -192,18 +192,18 @@ A connect command can have the following parameters:
 \end{itemize}
 
 \subsection{disconnect}
-\begin{lstlisting}[caption={XMl definition of a disconnect command}, captionpos=b, label={lst:disconnect}, language=XML]
+\begin{lstlisting}[caption={XML definition of a disconnect command}, captionpos=b, label={lst:disconnect}, language=XML]
 <disconnect/>
 \end{lstlisting}
 A disconnect command does not have any parameters.
 The Client Group disconnects from the broker it is connected to.
 
 \subsection{publish}
-\begin{lstlisting}[caption={XMl definition of a publish commmand}, captionpos=b, label={lst:publish}, language=XML]
+\begin{lstlisting}[caption={XML definition of a publish commmand}, captionpos=b, label={lst:publish}, language=XML]
 <publish topicGroup="tg1" count="10" message="message" rate="100/1s"/>
 <publish topicGroup="tg1" count="10" payloadGenerator="randomAlphaNumeric"/>
-<publish topicGroup="tg1" count="10" payloadGenerator="{{clientId}} {{topic}}"/>
-<publish topicGroup="tg1" count="10" message="message" payloadGenerator="payload[0-9]{10}"/>
+<publish topicGroup="tg1" message="{{clientId}}" payloadGenerator="mustache"/>
+<publish topicGroup="tg1" message="payload[0-9]{10}" payloadGenerator="regex"/>
 \end{lstlisting}
 A publish command has the following parameters:
 \begin{itemize}
@@ -212,9 +212,9 @@ A publish command has the following parameters:
 	\item \textbf{payloadGenerator (optional):} the generator for the payload that is sent within the message. The following options exist:
 		\begin{itemize}
 			\item \textbf{randomAlphaNumeric:} generates random alpha numeric strings as payloads.
-			\item \textbf{static (default):} uses the payload parameter as payload.
-			\item \textbf{mustace:} generates payloads bases on mustache.js templates.
-			\item \textbf{regex:} generates payloads based on a regex pattern.
+			\item \textbf{static (default):} simply uses the message parameter as payload.
+			\item \textbf{mustache:} generates payloads bases on a mustache.js templates given in the message parameter.
+			\item \textbf{regex:} generates payloads based on a regex pattern given in the message parameter.
 		\end{itemize}
 	\item \textbf{qos (optional):} the quality of service.
 	\item \textbf{waitForACK (optional):} whether the Client Group waits for the ACK from the broker.
@@ -224,7 +224,7 @@ A publish command has the following parameters:
 \end{itemize}
 
 \subsection{subscribe}
-\begin{lstlisting}[caption={XMl definition of a subscibe command}, captionpos=b, label={lst:subscirbe}, language=XML]
+\begin{lstlisting}[caption={XML definition of a subscibe command}, captionpos=b, label={lst:subscirbe}, language=XML]
 <subscribe subscription="sub1" qos="1"/>
 \end{lstlisting}
 A subscribe command has the following parameters:
@@ -235,7 +235,7 @@ A subscribe command has the following parameters:
 \end{itemize}
 
 \subsection{unsubscribe}
-\begin{lstlisting}[caption={XMl definition of a unsubscibe command}, captionpos=b, label={lst:unsubscirbe}, language=XML]
+\begin{lstlisting}[caption={XML definition of a unsubscibe command}, captionpos=b, label={lst:unsubscirbe}, language=XML]
 <unsubscribe subscription="sub1"/>
 \end{lstlisting}
 A unsubscribe command has the following parameters:
@@ -245,7 +245,7 @@ A unsubscribe command has the following parameters:
 \end{itemize}
 
 \subsection{wait}
-\begin{lstlisting}[caption={XMl definition of a wait command}, captionpos=b, label={lst:wait}, language=XML]
+\begin{lstlisting}[caption={XML definition of a wait command}, captionpos=b, label={lst:wait}, language=XML]
 <wait topicGroup="tg1" duration="10s"/>
 \end{lstlisting}
 A wait command has the following parameter:
@@ -256,7 +256,7 @@ A wait command has the following parameter:
 \end{itemize}
 
 \subsection{for}
-\begin{lstlisting}[caption={XMl definition of a for command}, captionpos=b, label={lst:for}, language=XML]
+\begin{lstlisting}[caption={XML definition of a for command}, captionpos=b, label={lst:for}, language=XML]
 <for times="2">
 	<connect broker="b1"/>
 	<disconnect/>
@@ -270,7 +270,7 @@ A for command can contain other commands, it has the following parameters:
 \end{itemize}
 
 \subsection{rampUp}
-\begin{lstlisting}[caption={XMl definition of a rampUp command}, captionpos=b, label={lst:rampUp}, language=XML]
+\begin{lstlisting}[caption={XML definition of a rampUp command}, captionpos=b, label={lst:rampUp}, language=XML]
 <rampUp duration="10s"/>	
 \end{lstlisting}
 \begin{itemize}
