@@ -1,11 +1,13 @@
 \chapter{Concepts}
 To understand the workings of Varroa, we will have to take a look at the different parts that make up the system.
+Furthermore we explain the basic concepts of MQTT.
 
+\section{Varroa Distributed System Concepts}
+A Varroa Distributed System orchestration of multiple Varroa instances consisting of one Commander and at least one Agent.
+Varroa is organized as a distributed system, due to the impossibility of creating enough MQTT-clients on a single machine to overload a MQTT-broker, especially if the broker is also a distributed system.
 
-\section{Definitions}
-
-\paragraph{Varroa Distributed System}
-An orchestration of multiple Varroa instances consisting of one Commander and at least one Agent.
+\paragraph{Varroa Instance}
+A Varroa instance is a running Varroa process in a single JVM, can be either Commander or Agent.
 
 \paragraph{Commander}
 The Commander is a part of the Varroa Distributed System, that parses the scenario, generates chunks and distributes them to the Agents.
@@ -16,30 +18,9 @@ The Agent is part of the Varroa Distributed System.
 It receives Chunks from the Commander and passes them to its MQTT-Agents.
 A Varroa distributed system contains at least one Agent.
 
-\paragraph{Varroa Instance}
-A Varroa instance is a running Varroa process in a single JVM, can be either Commander or Agent.
-
 \paragraph{MQTT Agent}
-A MQTT Agent is part of an Agent that manages MQTT clients.
-
-
-\paragraph{MQTT Client}
-A MQTT client used to execute the Commands to create load.
-
-\paragraph{Scenario}
-A scenario is an abstract representation of a real MQTT-Use-Case.
-It defines the topology of all participating MQTT clients and brokers.
-The scenario enables the simulation of a large amount of MQTT clients.
-
-\paragraph{Client Group}
-A group of Clients that share similar behaviour and properties.
-
-\paragraph{Topic Group}
-A group of Topics that are created from the same regular expression.
-
-\paragraph{Command}
-A command is an abstract representation of a work step that must be executed by a MQTT client.
-%A command is a particular type of MQTT-Message, for example Connect, Disconnect, Publish or Subscribe.
+MQTT Agents are components of an Agent.
+Every MQTT Agent manages one MQTT client.
 
 \paragraph{Chunk}
 The scenario is split in Chunks by the Commander and then those Chunk are distributed to the agents.
@@ -47,6 +28,29 @@ The scenario is split in Chunks by the Commander and then those Chunk are distri
 %Another important information, contained in the Chunk is at which rate these commands are to be executed.
 
 %A scenario is a XML-Document which defines a sequence of stages.
+
+\section{Varroa Scenario Concepts}
+The integral idea of Varroa is testing scenarios, which means simulating the behaviour of a large amount of MQTT clients.
+It tests whether the broker can handle the associated load.
+A scenario is an abstract representation of a real MQTT-Use-Case.
+It defines the topology of all participating MQTT clients and brokers.
+
+\paragraph{MQTT Client}
+A MQTT client is used to execute the Commands to create load.
+Those clients implement the MQTT protocol using the HiveMQ MQTT Client.
+
+\paragraph{Client Group}
+Client groups are part of the scenario.
+They enable the user to define the behaviour and properties of a group of MQTT clients with a configurable size.
+These MQTT clients are created by Varroa for the purpose of simulating the MQTT clients of a scenario.
+The lifespan of the spawned MQTT clients does not exceed the lifespan of a scenario.
+
+\paragraph{Command}
+A command is an abstract representation of a work step that must be executed by a MQTT client.
+
+\paragraph{Topic Group}
+A Topic Group represents a number of topics that share a naming pattern.
+This concept enables the user to model the interaction between Client Groups and a number of similar topics.
 
 \section{General MQTT Concepts}
 \paragraph{Broker}
@@ -75,34 +79,4 @@ Disconnect describes the process of a Client establishing a connection to a Brok
 \paragraph{Disconnect}
 Connect describes the process of a Client terminating its connection to a Broker.
 
-%\section{Requirements}
-%\begin{table}[h]
-%	\begin{tabular}{| l | l | p{5cm} | l |}
-%		\hline
-%		\rowcolor{Gray}
-%		\# & Title & User Story & Importance \\
-%		\hline
-%		1 & Transparency & Varroa has to be comprehensible for the user. & Must have high \\
-%		\hline
-%		2 & 10.000.000 MQTT Clients & Varroa has to be able to generate a large amount of clients. & Must have high \\
-%		\hline
-%		3 & Scalability & Varroa should scale vertically with relatively low scaling costs. & Must have \\
-%		\hline
-%		4 & Determinism & Varroa has to work in deterministic ways, meaning it should produce the same result for a Scenario every time. & Must have \\
-%		\hline
-%		5 & Distributed & Varroa is a distributed System. & Must have low \\
-%		\hline
-%		6 & Usabillity & Varroa has to be easily usable. & Very important \\
-%		\hline
-%		7 & Code Quality & Varroa's coding quality should be very high. & Important\\
-%		\hline
-%		8 & Stability & Varroa has to run in a stable manner. & Important \\
-%		\hline
-%		9 & Resource efficiency & Varroa has to use the available computation and memory resources efficiently. & Important\\
-%		\hline
-%		10 & User / Developer Guide & Varroa needs a User / Developer Guide. & Somewhat important \\
-%		\hline
-%		11 & Automation capacity & Varroa should be automatable & Somewhat important \\
-%		\hline
-%	\end{tabular}
-%\end{table}
+
