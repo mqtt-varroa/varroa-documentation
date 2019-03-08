@@ -22,6 +22,10 @@
 	<subscriptions>
 		<!-- definition of subscriptions -->
 	</subscriptions>
+
+	<waitPatterns>
+		<!-- definition of waitPatterns -->
+	</waitPatterns>
 	
 	<stages>
 		<!-- definition of stages -->
@@ -31,6 +35,7 @@
 
 A Varroa test is the execution of a user defined Scenario, which is specified in a XML file.
 To define a valid scenario the user needs to define the topology of the Scenario and the behaviour of its components.
+An example for the outline of a Scenario XML file is given in \ref{lst:scenario}.
 
 \section{Broker}
 \begin{lstlisting}[caption={XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
@@ -147,7 +152,23 @@ or
 \end{itemize}
 
 \section{Wait Patterns} \label{sec:waitPatterns}
-%TODO 
+\begin{lstlisting}[caption={XML definition of waitPatterns}, captionpos=b, label={lst:waitPatterns}, language=XML]
+<scenario>
+	<waitPatterns>
+		<waitPattern id="waitPattern-1">
+			<subscription>subscription-1</subscription>
+			<messagePattern>payload[0-9]{10}</messagePattern>
+		</waitPattern>
+	</waitPatterns>
+</scenario>
+\end{lstlisting}
+A Wait Pattern enables the user to module waiting behaviours where MQTT clients wait for receiving messages in a Subscription (see \ref{sec:subscriptions}) before executing other commands.
+As seen in the example above, the following parameters need to be specified:
+\begin{itemize}
+	\item \textbf{id:} the identifier to reference the Wait Pattern.
+	\item \textbf{subscription:} the Subscription the Wait Pattern targets.
+	\item \textbf{messagePattern (optional):} the message pattern that is waited for in the targeted subscription.
+\end{itemize}
 
 \section{Stages}
 \begin{lstlisting}[caption={XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
