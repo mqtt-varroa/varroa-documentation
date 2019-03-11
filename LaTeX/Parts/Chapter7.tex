@@ -52,7 +52,7 @@ Also before new code could be added to the master branch it was reviewed by anot
 \emph{Varroa has to run in a stable manner.}
 
 This requirement is fulfilled.
-By the use of integration tests and general unit tests stability could be ensured.
+By the use of integration tests and general unit tests stability is ensured.
 
 \subsection{Resource efficiency (Important)} 
 \emph{Varroa has to use the available computation and memory resources efficiently.}
@@ -66,14 +66,14 @@ This requirement is fulfilled. This documentation educates the user on defining 
 \subsection{Automation capacity (Somewhat Important)} 
 Varroa should be automatable.
 
+%TODO Docker.
 %TODO is this fulfilled? 
 
 \subsection{User Interface}
 \emph{Varroa should have a well designed user interface with high usability.}
 
-This requirement is not fulfilled.
-
-%TODO why no UI?
+This requirement is fulfilled.
+The user can interact with Varroa using a command line interface.
 
 \subsection{Multi Platform Support (Nice To Have)}
 \emph{Varroa should run on multiple platforms.}
@@ -100,13 +100,14 @@ The library ensures specification conformity in both MQTT version 3 and MQTT ver
 \subsection{All Transports (Must Have)}
 \emph{Varroa has to support all transports that are possible in MQTT.}
 
-%TODO fulfilled?
+This requirement is not fulfilled.
+Currently Varroa does not support websockets.
 
 \subsection{Reports (Must Have)}
 \emph{Varroa has to report the findings of the testing process.}
 
 This requirement is fulfilled.
-%TODO reporting?
+Varroa supports reporting findings of tests (see \ref{sec:Reporting})
 
 \subsection{User Feedback (Must Have Low)}
 \emph{Varroa has to give user feedback during runtime.}
@@ -123,47 +124,31 @@ This document contains a user guide and briefly explains the architecture and in
 \emph{Varroa has to record and expose internal metrics.}
 
 This requirement is not fulfilled.
-%TODO why not fulfilled?
 
 \subsection{Deployment Convenience (Important)}
 \emph{Varroa must be easily deployable.}
 
 This requirement is fulfilled. Due to the use of Docker Varroa Instances can be easily started and so a Varroa Distributed System can be orchestrated without much configuration (see chapter \ref{sec:Execution}).
 
-\subsection{HTTP-API (Somewhat Important)}
-\emph{Varroa must implement a HTTP-API.}
-
-%TODO what is a HTTP-API in this context?
-
 \subsection{Topology Change (Less important)}
 \emph{Varroa must be able to simulate changes to the network topology.}
 
 This requirement is not fulfilled.
-%TODO how?
+It is not possible to simulate network level behaviour of the clients in the current version.
 
-\subsection{DAU and Expert Mode (Somewhat Important)}
+\subsection{Simple and Expert Mode (Somewhat Important)}\vspace{-1pt}
 \emph{Varroa has to have two user modes.
 One for experienced users and one for unexperienced users.}
 
 This requirement is not fulfilled.
-%TODO reason
+Since Varroa does not have a graphical user interface in this version.
+Simple and Expert modes are not implemented.
 
-\subsection{AsyncAPI Support (Normal)}
-\emph{Varroa must be specified according to the AsyncAPI.}
 
-This requirement is fulfilled.
-%TODO how?
+\subsection{Notifications (Nice To Have)}\vspace{-1pt}
+\emph{Varroa must notitfy the user about the testing process by Email.}
 
-\subsection{Test Wizard (Nice To Have)}
-\emph{Test cases must be creatable using a Wizard.}
-
-This requirement is not fulfilled.
-%TODO why not fulfilled.
-
-\subsection{Notifications (Nice To Have)}
-\emph{Varroa must notitfy the user about the testing process.}
-
-This requirement is not fulfilled.
+This requirement is not fulfilled in the current version.
 
 
 
