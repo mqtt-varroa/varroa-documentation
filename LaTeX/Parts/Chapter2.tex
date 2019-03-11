@@ -3,19 +3,19 @@ To understand the workings of Varroa, we will have to take a look at the differe
 Furthermore we explain the basic concepts of MQTT.
 
 \section{Varroa Distributed System Concepts}
-A Varroa Distributed System orchestration of multiple Varroa instances consisting of one Commander and at least one Agent.
-Varroa is organized as a distributed system, due to the impossibility of creating enough MQTT-clients on a single machine to overload a MQTT-broker, especially if the broker is also a distributed system.
+A Varroa Distributed system is an orchestration of multiple Varroa instances consisting of one Commander and at least one Agent.
+Varroa is organized as a distributed system, due to the impossibility of creating enough MQTT clients on a single machine to overload an MQTT broker, especially if the broker is also a distributed system.
 
 \paragraph{Varroa Instance}
-A Varroa instance is a running Varroa process in a single JVM, can be either Commander or Agent.
+A Varroa instance is a running Varroa process in a single JVM, which either can be a Commander or an Agent.
 
 \paragraph{Commander}
-The Commander is a part of the Varroa Distributed System, that parses the scenario, generates chunks and distributes them to the Agents.
+The Commander is a part of the Varroa distributed system, that parses the scenario, generates chunks and distributes them to the Agents.
 Only one Commander exists in a Varroa distributed system.
 
 \paragraph{Agent}
-The Agent is part of the Varroa Distributed System.
-It receives Chunks from the Commander and passes them to its MQTT-Agents.
+The Agent is part of the Varroa distributed system.
+It receives Chunks from the Commander and passes them to its MQTT Agents.
 A Varroa distributed system contains at least one Agent.
 
 \paragraph{MQTT Agent}
@@ -24,6 +24,7 @@ Every MQTT Agent manages one MQTT client.
 
 \paragraph{Chunk}
 The scenario is split in Chunks by the Commander and then those Chunk are distributed to the agents.
+%TODO Why did we remove this
 %A Chunk is a Collection of Information, such as which commands are to be sent to the broker as well as how many clients should perform these commands.
 %Another important information, contained in the Chunk is at which rate these commands are to be executed.
 
@@ -32,25 +33,27 @@ The scenario is split in Chunks by the Commander and then those Chunk are distri
 \section{Varroa Scenario Concepts}
 The integral idea of Varroa is testing scenarios, which means simulating the behaviour of a large amount of MQTT clients.
 It tests whether the broker can handle the associated load.
-A scenario is an abstract representation of a real MQTT-Use-Case.
+A scenario is an abstract representation of a real MQTT Use Case.
 It defines the topology of all participating MQTT clients and brokers.
 
 \paragraph{MQTT Client}
 A MQTT client is used to execute the Commands to create load.
-Those clients implement the MQTT protocol using the HiveMQ MQTT Client.
+Those clients implement the MQTT protocol using the HiveMQ MQTT client.
 
 \paragraph{Client Group}
-Client groups are part of the scenario.
+Client groups are a part of the scenario.
 They enable the user to define the behaviour and properties of a group of MQTT clients with a configurable size.
 These MQTT clients are created by Varroa for the purpose of simulating the MQTT clients of a scenario.
-The lifespan of the spawned MQTT clients does not exceed the lifespan of a scenario.
+%TODO lifespan = that, review change
+The lifespan of the spawned MQTT clients does not exceed the that of a scenario.
 
 \paragraph{Command}
+%TODO anfetten maybe
 A command is an abstract representation of a work step that must be executed by a MQTT client.
 
 \paragraph{Action}
 An Action is the act of executing a command by a MQTT Agent.
-Needed for reporting.
+This feature is needed for reporting.
 
 \paragraph{Topic Group}
 A Topic Group represents a number of topics that share a naming pattern.
@@ -59,28 +62,28 @@ This concept enables the user to model the interaction between Client Groups and
 \section{General MQTT Concepts}
 \paragraph{Broker}
 The Broker serves as an intermediary between publishers and subscribers.
-It takes over the routing of the exchanged MQTT messages and is the central control authority of a MQTT Network.
+It takes over the routing of the exchanged MQTT-messages and is the central control authority of a MQTT-Network.
 %TODO cite Georg
 \paragraph{Client}
 A client that implements the MQTT protocol. 
 \paragraph{Topic}
 Topics are strings separated by slashes that do not contain wild-cards.
-Messages published with Topic are delivered to subscribers that have registered matching Topic Filters.
+Messages published with topic are delivered to subscribers that have registered matching topic Filters.
 \paragraph{Topic Filter}
 A Topic Filter is a chain of strings delimited by slashes that 
 can cover one or more topics. 
-It can also contain wild-cards: a plus sign covers a single hierarchy level, a double cross selects all possible following levels.
+It can also contain wild-cards: a single plus character covers one hierarchy level, a double cross selects all possible following levels.
 \paragraph{Publisher}
 Publishers are clients that produce data.
 They send messages with a specific topic to the broker.
 \paragraph{Subscriber}
 Subscribers are clients that subscribe to a subset or to all messages sent via the
 MQTT network.
-They log on to the broker and register with one or more topic filters that specify the topics whose messages they want to receive.
+They log on to the broker and register with one or more topic filters that specify the topics, which determine whose messages they want to receive.
 %TODO cite Georg
 \paragraph{Connect}
-Disconnect describes the process of a Client establishing a connection to a Broker.
+Disconnect describes the process of a client establishing a connection to a broker.
 \paragraph{Disconnect}
-Connect describes the process of a Client terminating its connection to a Broker.
+Connect describes the process of a client terminating its connection to a broker.
 
 
