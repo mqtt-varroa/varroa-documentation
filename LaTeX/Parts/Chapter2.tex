@@ -10,13 +10,13 @@ Varroa is organized as a distributed system, due to the impossibility of creatin
 A Varroa instance is a running Varroa process in a single JVM, which either can be a Commander or an Agent.
 
 \paragraph{Commander}
-The Commander is a part of the Varroa distributed system, that parses the scenario, generates chunks and distributes them to the Agents.
-Only one Commander exists in a Varroa distributed system.
+The Commander is a part of the Varroa Distributed system, that parses the scenario, generates chunks and distributes them to the Agents.
+Only one Commander exists in a Varroa Distributed system.
 
 \paragraph{Agent}
-The Agent is part of the Varroa distributed system.
+The Agent is part of the Varroa Distributed system.
 It receives Chunks from the Commander and passes them to its MQTT Agents.
-A Varroa distributed system contains at least one Agent.
+A Varroa Distributed system contains at least one Agent.
 
 \paragraph{MQTT Agent}
 MQTT Agents are components of an Agent.
@@ -24,16 +24,11 @@ Every MQTT Agent manages one MQTT client.
 
 \paragraph{Chunk}
 The scenario is split in Chunks by the Commander and then those Chunk are distributed to the agents.
-%TODO Why did we remove this
-%A Chunk is a Collection of Information, such as which commands are to be sent to the broker as well as how many clients should perform these commands.
-%Another important information, contained in the Chunk is at which rate these commands are to be executed.
-
-%A scenario is a XML-Document which defines a sequence of stages.
 
 \section{Varroa Scenario Concepts}
 The integral idea of Varroa is testing scenarios, which means simulating the behaviour of a large amount of MQTT clients.
 It tests whether the broker can handle the associated load.
-A scenario is an abstract representation of a real MQTT Use Case.
+A scenario is an abstract representation of a real MQTT use case.
 It defines the topology of all participating MQTT clients and brokers.
 
 \paragraph{MQTT Client}
@@ -61,25 +56,25 @@ This concept enables the user to model the interaction between Client Groups and
 
 \section{General MQTT Concepts}
 \paragraph{Broker}
-The Broker serves as an intermediary between publishers and subscribers.
+The broker serves as an intermediary between publishers and subscribers.
 It takes over the routing of the exchanged MQTT-messages and is the central control authority of a MQTT-Network.
 %TODO cite Georg
 \paragraph{Client}
 A client that implements the MQTT protocol. 
 \paragraph{Topic}
-Topics are strings separated by slashes that do not contain wild-cards.
-Messages published with topic are delivered to subscribers that have registered matching topic Filters.
+Topics are strings separated by slashes that do not contain wildcards.
+Messages published with a topic are delivered to subscribers that have registered matching topic Filters.
 \paragraph{Topic Filter}
 A Topic Filter is a chain of strings delimited by slashes that 
 can cover one or more topics. 
-It can also contain wild-cards: a single plus character covers one hierarchy level, a double cross selects all possible following levels.
+It can also contain wildcards: a single plus character covers one hierarchy level, a double cross selects all possible following levels.
 \paragraph{Publisher}
 Publishers are clients that produce data.
 They send messages with a specific topic to the broker.
 \paragraph{Subscriber}
 Subscribers are clients that subscribe to a subset or to all messages sent via the
 MQTT network.
-They log on to the broker and register with one or more topic filters that specify the topics, which determine whose messages they want to receive.
+They log on to the broker and register with one or more topic filters that specify the topics, which determine what messages they want to receive.
 %TODO cite Georg
 \paragraph{Connect}
 Disconnect describes the process of a client establishing a connection to a broker.
