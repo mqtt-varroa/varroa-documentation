@@ -4,90 +4,166 @@ In addition, it is indicated whether and how they are currently implemented.
 
 \section{Non-Functional Requirements}
 
-\subsection{Transparency (Must Have High)} 
-Varroa has to be comprehensible for the user.
+\subsection{Transparency (Must Have High)}\label{sec:Transparency}
+\emph{Varroa has to be comprehensible for the user.}
+
+This requirement is fulfilled.
+Varroa implements expressive logging with configurable levels and outputs.
+This enables rich insight in the execution process of a Varroa test.
 
 \subsection{10.000.000 MQTT Clients (Must Have High)} 
-Varroa has to be able to generate a large amount of clients.
+\emph{Varroa has to be able to generate a large amount of clients.}
+
+The fulfilment of this requirement is not verified yet.
 
 \subsection{Scalability (Must Have)} 
-Varroa should scale vertically with relatively low scaling costs.
+\emph{Varroa should scale vertically with relatively low scaling costs.}
+
+This requirement is fulfilled.
+To do so Varroa is organised as a distributed System and can easily be extended with new instances running as Varroa Agents.
 
 \subsection{Determinism (Must Have)} 
-Varroa has to work in deterministic ways, meaning it should produce the same result for a Scenario every time.
+\emph{Varroa has to work in deterministic ways, meaning it should produce the same result for a Scenario every time.}
+
+This requirement is fulfilled.
+To ensure this determinism several measures are taken in the distribution and execution of a Scenario (see chapter \ref{sec:Architecture}).
 
 \subsection{Distributed (Must Have Low)} 
-Varroa is a distributed System.
+\emph{Varroa is a distributed System.}
+
+This requirement is fulfilled.
+Varroa is organized as a distributed System, it is composed of a Commander and multiple Agents that can run on different machines. 
  
 \subsection{Usabillity (Very Important)} 
-Varroa has to be easily usable.
+\emph{Varroa has to be easily usable.}
+
+This requirement is fulfilled.
+The user can easily define custom Scenarios as XML files and execute them (see chapter \ref{sec:ScenarioConcept} and \ref{sec:Execution}).
 
 \subsection{Code Quality (Important)} 
-Varroa's coding quality should be very high.
+\emph{Varroa's code quality should be very high.}
+
+This requirement is fulfilled.
+To ensure high code quality several measures are taken.
+For example the consequent use of nullability annotiations and a broad test code coverage.
+Also before new code could be added to the master branch it was reviewed by another team member.
 
 \subsection{Stability (Important)} 
-Varroa has to run in a stable manner.
+\emph{Varroa has to run in a stable manner.}
+
+This requirement is fulfilled.
+By the use of integration tests and general unit tests stability could be ensured.
 
 \subsection{Resource efficiency (Important)} 
-Varroa has to use the available computation and memory resources efficiently.
+\emph{Varroa has to use the available computation and memory resources efficiently.}
+%TODO how was this verified.
 
 \subsection{User / Developer Guide (Somewhat Important)} 
-Varroa needs a User / Developer Guide.
+\emph{Varroa needs a User / Developer Guide.}
+
+This requirement is fulfilled. This documentation educates the user on defining a custom scenario and after that executing it on his Varroa Distributed System (\ref{sec:ScenarioConcept} and \ref{sec:Execution}).
 
 \subsection{Automation capacity (Somewhat Important)} 
 Varroa should be automatable.
 
+%TODO is this fulfilled? 
+
 \subsection{User Interface}
-Varroa should have a well designed user interface with high usability.
+\emph{Varroa should have a well designed user interface with high usability.}
+
+This requirement is not fulfilled.
+
+%TODO why no UI?
 
 \subsection{Multi Platform Support (Nice To Have)}
-Varroa should run on multiple platforms.
+\emph{Varroa should run on multiple platforms.}
+
+This requirement is fulfilled.
+Due to the utilisation of Docker, Varroa can run on several platforms (see chapter \ref{sec:Execution}).
 
 \section{Functional Requirements}
 The following sections list the non-functional requirements and their respective priorities.
 
 \subsection{Scenarios (Must Have High)}
-Varroa must be able to execute user defined MQTT Scenarios.
+\emph{Varroa must be able to execute user defined MQTT Scenarios.}
 
-\subsection{MQTT Spec Confirmity (Must Have High)}
-Varroa must conform to the MQTT spec.
+This requirement is fulfilled.
+Varroa has the ability to parse and execute Scenarios, according to the concept explained in chapter \ref{sec:ScenarioConcept}.
+
+\subsection{MQTT Specification Confirmity (Must Have High)}
+\emph{Varroa must conform to the MQTT specification.}
+
+This requirement is fulfilled.
+Varroa uses the HiveMQ MQTT Client library for its MQTT actions.
+The library ensures specification conformity in both MQTT version 3 and MQTT version 5.
 
 \subsection{All Transports (Must Have)}
-Varroa has to support all transports that are possible in MQTT.
+\emph{Varroa has to support all transports that are possible in MQTT.}
+
+%TODO fulfilled?
 
 \subsection{Reports (Must Have)}
-Varroa has to report the findings of the testing process.
+\emph{Varroa has to report the findings of the testing process.}
+
+This requirement is fulfilled.
+%TODO reporting?
 
 \subsection{User Feedback (Must Have Low)}
-Varroa has to give user feedback during runtime.
+\emph{Varroa has to give user feedback during runtime.}
+
+This requirement is fulfilled (see \ref{sec:Transparency}).
 
 \subsection{Documentation (Very Important)}
-Varroa has to be documented. 
+\emph{Varroa has to be documented. }
+
+This requirement is fulfilled.
+This document contains a user guide and briefly explains the architecture and inner workings of Varroa.
 
 \subsection{Metrics (Very Important)}
-Varroa has to record and expose internal metrics.
+\emph{Varroa has to record and expose internal metrics.}
+
+This requirement is not fulfilled.
+%TODO why not fulfilled?
 
 \subsection{Deployment Convenience (Important)}
-Varroa must be deployable easily.
+\emph{Varroa must be easily deployable.}
+
+This requirement is fulfilled. Due to the use of Docker Varroa Instances can be easily started and so a Varroa Distributed System can be orchestrated without much configuration (see chapter \ref{sec:Execution}).
 
 \subsection{HTTP-API (Somewhat Important)}
-Varroa must implement a HTTP-API.
+\emph{Varroa must implement a HTTP-API.}
+
+%TODO what is a HTTP-API in this context?
 
 \subsection{Topology Change (Less important)}
-Varroa must be able to simulate changes to the network topology.
+\emph{Varroa must be able to simulate changes to the network topology.}
+
+This requirement is not fulfilled.
+%TODO how?
 
 \subsection{DAU and Expert Mode (Somewhat Important)}
-Varroa has to have two user modes.
-One for experienced users and one for unexperienced users.
+\emph{Varroa has to have two user modes.
+One for experienced users and one for unexperienced users.}
+
+This requirement is not fulfilled.
+%TODO reason
 
 \subsection{AsyncAPI Support (Normal)}
-Varroa must be specified according to the AsyncAPI.
+\emph{Varroa must be specified according to the AsyncAPI.}
+
+This requirement is fulfilled.
+%TODO how?
 
 \subsection{Test Wizard (Nice To Have)}
-Test cases must be creatable using a Wizard.
+\emph{Test cases must be creatable using a Wizard.}
+
+This requirement is not fulfilled.
+%TODO why not fulfilled.
 
 \subsection{Notifications (Nice To Have)}
-Varroa must notitfy the user about the testing process.
+\emph{Varroa must notitfy the user about the testing process.}
+
+This requirement is not fulfilled.
 
 
 
