@@ -26,7 +26,7 @@ For static configuration, the user must provide an instance configuration, which
 \end{center}
 \end{figure}
 
-DNS discovery specifically is aimed at container environments and cloud platforms. These types of platforms generally provide different methods of service discovery, which are necessary to allow distributed systems to communicate with their components.
+DNS discovery specifically is aimed at container environments and cloud platforms. These types of platforms generally provide different methods of service discovery, which are necessary to allow the parts of a distributed systems to communicate with each other.
 
 In container environments especially, the address of a server an application is going to run on is generally not known ahead of application startup. Containers are launched quickly and in an unpredictable order, leading to a scenario where the addresses of all parts of a system cannot be known ahead of time. This necessitates a configuration method which allows service discovery after application startup, which the previous method cannot handle.
 
