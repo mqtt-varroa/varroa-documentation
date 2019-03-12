@@ -1,6 +1,6 @@
 \chapter{Requirements}
 The following sections list the requirements and their respective priorities.
-In addition, it is indicated whether and how they are currently implemented.
+Additionally it is indicated whether and how they are currently implemented.
 
 \section{Non-Functional Requirements}
 
@@ -9,7 +9,7 @@ In addition, it is indicated whether and how they are currently implemented.
 
 This requirement is fulfilled.
 Varroa implements expressive logging with configurable levels and outputs.
-This enables rich insight in the execution process of a Varroa test.
+This enables a rich insight in the execution process of a Varroa test.
 
 \subsection{10.000.000 MQTT Clients (Must Have High)} 
 \emph{Varroa has to be able to generate a large amount of clients.}
@@ -23,16 +23,18 @@ This requirement is fulfilled.
 To do so Varroa is organised as a distributed System and can easily be extended with new instances running as Varroa Agents.
 
 \subsection{Determinism (Must Have)} 
-\emph{Varroa has to work in deterministic ways, meaning it should produce the same result for a Scenario every time.}
+\emph{Varroa has to work in deterministic ways, meaning it should produce the same result for the same Scenario every time.}
 
 This requirement is fulfilled.
-To ensure this determinism several measures are taken in the distribution and execution of a Scenario (see chapter \ref{sec:Architecture}).
+To guarantee this determinism several measures are taken, ensuring deterministic distribution and execution of a Scenario (see chapter \ref{sec:Architecture}).
 
 \subsection{Distributed (Must Have Low)} 
 \emph{Varroa is a distributed System.}
 
 This requirement is fulfilled.
-Varroa is organized as a distributed System, it is composed of a Commander and multiple Agents that can run on different machines. 
+Varroa is organized as a distributed System.
+It is composed of a Commander and multiple Agents.
+These components can be run on separate machines. 
  
 \subsection{Usabillity (Very Important)} 
 \emph{Varroa has to be easily usable.}
@@ -45,14 +47,14 @@ The user can easily define custom Scenarios as XML files and execute them (see c
 
 This requirement is fulfilled.
 To ensure high code quality several measures are taken.
-For example the consequent use of nullability annotiations and a broad test code coverage.
+An example for these measures is the consequent use of nullability as well as broad test code coverage. 
 Also before new code could be added to the master branch it was reviewed by another team member.
 
 \subsection{Stability (Important)} 
 \emph{Varroa has to run in a stable manner.}
 
 This requirement is fulfilled.
-By the use of integration tests and general unit tests stability is ensured.
+Stability is ensured by the use of integration tests and general unit tests.
 
 \subsection{Resource efficiency (Important)} 
 \emph{Varroa has to use the available computation and memory resources efficiently.}
@@ -61,7 +63,8 @@ By the use of integration tests and general unit tests stability is ensured.
 \subsection{User / Developer Guide (Somewhat Important)} 
 \emph{Varroa needs a User / Developer Guide.}
 
-This requirement is fulfilled. This documentation educates the user on defining a custom scenario and after that executing it on his Varroa Distributed System (\ref{sec:ScenarioConcept} and \ref{sec:Execution}).
+This requirement is fulfilled.
+The documentation educates the user on the definition of a custom scenario aswell as the exectution of it on his Varroa Distributed System (\ref{sec:ScenarioConcept} and \ref{sec:Execution}).
 
 \subsection{Automation capacity (Somewhat Important)} 
 \emph{Varroa should be automatable.}
