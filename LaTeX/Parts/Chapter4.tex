@@ -5,7 +5,7 @@
 %\end{lstlisting}
 
 
-\begin{lstlisting}[caption={example XML definition of the Scenario}, captionpos=b, label={lst:scenario}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of the Scenario}, captionpos=b, label={lst:scenario}, language=XML]
 <scenario>
 	<broker id="b1">
 		<!-- definition broker parameters -->
@@ -38,7 +38,7 @@ To define a valid scenario the user needs to define the topology of the Scenario
 An example for the outline of a Scenario XML file is given in \ref{lst:scenario}.
 
 \section{Broker}
-\begin{lstlisting}[caption={example XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
 <scenario>
 	<broker id="b1">
 		<address>broker.hivemq.com</address>
@@ -55,7 +55,7 @@ For this the user needs to define:
 \end{itemize}
 
 \section{Client Groups}
-\begin{lstlisting}[caption={example XML definition of Client Groups}, captionpos=b, label={lst:clientGroups}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of Client Groups}, captionpos=b, label={lst:clientGroups}, language=XML]
 <scenario>
 	<clientGroups>
 		<clientGroup id="cg1">
@@ -81,7 +81,7 @@ When defining a Client Group the user needs to specify:
 \end{itemize}
 
 \subsection{MQTT Properties}\label{sec:mqttProperties}
-\begin{lstlisting}[caption={example XML definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
 <mqtt>
 	<version>5</version>
 <\mqtt>
@@ -99,7 +99,7 @@ The following MQTT properties can be defined:
 
 
 \section{Topic Groups} \label{sec:topicGroups}
-\begin{lstlisting}[caption={example XML definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
 <scenario>
 	<topicGroups>
 		<topicGroup id="tg1">
@@ -121,7 +121,7 @@ When defining a Topic Group the user needs to specify:
 \end{itemize}
 
 \section{Subscriptions} \label{sec:subscriptions}
-\begin{lstlisting}[caption={example XML definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
 <scenario>
 	<subscriptions>
 		<subscription id="sub-1">
@@ -154,7 +154,7 @@ or
 \end{itemize}
 
 \section{Wait Patterns} \label{sec:waitPatterns}
-\begin{lstlisting}[caption={example XML definition of waitPatterns}, captionpos=b, label={lst:waitPatterns}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of waitPatterns}, captionpos=b, label={lst:waitPatterns}, language=XML]
 <scenario>
 	<waitPatterns>
 		<waitPattern id="waitPattern-1">
@@ -175,7 +175,7 @@ As seen in the example above, the following parameters need to be specified:
 \end{itemize}
 
 \section{Stages}
-\begin{lstlisting}[caption={example XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
 <scenario>
 	<stages>
 		<stage id="s1" expectedDuration="10s">
@@ -209,7 +209,7 @@ To define a Lifecycle the user needs to specify:
 \section{Commands}\label{sec:commands}
 A Command is to be executed by a Client Group, it must be contained in a Lifecycle.
 \subsection{connect}
-\begin{lstlisting}[caption={example XML definition of a connect command}, captionpos=b, label={lst:connect}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a connect Command}, captionpos=b, label={lst:connect}, language=XML]
 <connect broker="b1" expectedDuration="10s"/>
 \end{lstlisting}
 The connect command orders the Client Group to connect to a broker.
@@ -220,14 +220,14 @@ It has the following parameters:
 \end{itemize}
 
 \subsection{disconnect}
-\begin{lstlisting}[caption={example XML definition of a disconnect command}, captionpos=b, label={lst:disconnect}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a disconnect Command}, captionpos=b, label={lst:disconnect}, language=XML]
 <disconnect/>
 \end{lstlisting}
 A disconnect Command does not have any parameters.
 The Client Group disconnects from the broker it is connected to.
 
 \subsection{publish}
-\begin{lstlisting}[caption={example XML definition of a publish commmand}, captionpos=b, label={lst:publish}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a publish Commmand}, captionpos=b, label={lst:publish}, language=XML]
 <publish topicGroup="tg1" count="10" message="message" rate="100/1s"/>
 <publish topicGroup="tg1" count="10" payloadGenerator="randomAlphaNumeric"/>
 <publish topicGroup="tg1" message="{{clientId}}" payloadGenerator="mustache"/>
@@ -253,7 +253,7 @@ It has the following parameters:
 \end{itemize}
 
 \subsection{subscribe}
-\begin{lstlisting}[caption={example XML definition of a subscibe command}, captionpos=b, label={lst:subscirbe}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a subscibe Command}, captionpos=b, label={lst:subscirbe}, language=XML]
 <subscribe subscription="sub1" qos="1"/>
 \end{lstlisting}
 A subscribe Command orders the Client Group to subscribe.
@@ -265,7 +265,7 @@ It has the following parameters:
 \end{itemize}
 
 \subsection{unsubscribe}
-\begin{lstlisting}[caption={example XML definition of a unsubscibe command}, captionpos=b, label={lst:unsubscirbe}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a unsubscibe Command}, captionpos=b, label={lst:unsubscirbe}, language=XML]
 <unsubscribe subscription="sub1"/>
 \end{lstlisting}
 A unsubscribe Command orders the Client Group to unsubscribe.
@@ -276,7 +276,7 @@ It has the following parameters:
 \end{itemize}
 
 \subsection{wait}
-\begin{lstlisting}[caption={example XML definition of a wait command}, captionpos=b, label={lst:wait}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a wait Command}, captionpos=b, label={lst:wait}, language=XML]
 <wait waitPattern="wp1" duration="10s"/>
 \end{lstlisting}
 A wait Command orders a Client Group to wait before executing the following Commands.
@@ -289,7 +289,7 @@ It has the following parameter:
 If both a Wait Pattern and a duration are given the following Commands are executed after either the duration is exceeded or the Wait Pattern has matched.
 
 \subsection{for}
-\begin{lstlisting}[caption={example XML definition of a for command}, captionpos=b, label={lst:for}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a for Command}, captionpos=b, label={lst:for}, language=XML]
 <for times="2">
 	<connect broker="b1"/>
 	<disconnect/>
@@ -304,7 +304,7 @@ It has the following parameters:
 \end{itemize}
 
 \subsection{rampUp}
-\begin{lstlisting}[caption={example XML definition of a rampUp command}, captionpos=b, label={lst:rampUp}, language=XML]
+\begin{lstlisting}[caption={example for the XML definition of a rampUp Command}, captionpos=b, label={lst:rampUp}, language=XML]
 <rampUp duration="10s"/>	
 \end{lstlisting}
 The Client Group executes the following Commands of the lifecycle in staggered order.
