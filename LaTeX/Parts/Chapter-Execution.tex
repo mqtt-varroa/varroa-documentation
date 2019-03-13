@@ -3,26 +3,42 @@
 Varroa has two main modes of execution for now. One is to configure Varroa ahead of time manually or programmatically and then execute directly. The other is to use containers and utilize dynamic discovery.
 
 \section{Configuration}
-Following are the two sequence sketches for direct (static initialization) configuration and dynamic (DNS discovery based) configuration.
+Following are the two sequence sketches for direct (static initialization) configuration \ref{pic:staticExecution} and dynamic (DNS discovery based)\ref{pic:dynamicExecution} configuration.
 
 \section{Static configuration}
 \begin{figure}[h]
 \begin{center}
 \includegraphics[scale=0.65]{Resources/PDF/ExecutionStaticInit}
 \caption{static execution}
+\label{pic:staticExecution}
 \end{center}
 \end{figure}
 
-Static configuration may be used on any infrastructure where hostname/ip addresses of all Varroa instances (commander and agents) are known ahead of time. This is the case on most typical systems, such as IaaS clouds where an instance is booted and assigned an address before the application is deployed onto that system.
+Static configuration may be used on any infrastructure where hostname or ip addresses of all Varroa instances (commander and agents) are known ahead of time. This is the case on most typical systems, such as IaaS clouds where an instance is booted and assigned an address before the application is deployed onto that system.
 
-For static configuration, the user must provide an instance configuration, which configures the Varroa instance as either a commander or an agent, as well as (optionally) the instance limits specifying how much load the agent can generate.
+For static configuration, the user must provide an instance configuration, which configures the Varroa instance as a commander or an agent (or possibly both), as well as (optionally) the instance limits specifying how much load the agent can generate.
 
+\lstset{language=xml}
+
+\begin{figure}
+
+\begin{lstlisting}[frame=single]
+<varroa>
+    <commander>
+        <bind-port>12345</bind-port>
+        <amount-agents>3</amount-agents>
+    </commander>
+</varroa>
+\end{lstlisting}
+\caption{A sample static commander configuration}
+\end{figure}
 \section{Dynamic configuration}
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[scale=0.65]{Resources/PDF/ExecutionDnsInit}
 \caption{dynamic execution}
+\label{pic:dynamicExecution}
 \end{center}
 \end{figure}
 
@@ -45,3 +61,12 @@ At startup Varroa will continuously resolve those records, which must be a round
 Additionally, agents can use the commander address to locate the commander node and continuously attempt to connect to it until it is ready for agent connections.
 
 The commander can also determine how many agents will connect to it using the agent address, or alternatively a agent count can be  provided at startup (for deployments on services where records are slowly updated as containers start).
+
+\begin{figure}
+\begin{lstlisting}
+VARROA_DNS_AGENT=tasks.agents
+VARROA_DNS_COMMANDER=tasks.commander
+VARROA_DNS_AGENT_COUNT=3
+\end{lstlisting}
+\caption{A sample dynamic discovery configuration, showing the environment variable values}
+\end{figure}
