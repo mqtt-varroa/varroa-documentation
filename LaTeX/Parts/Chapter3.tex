@@ -104,7 +104,7 @@ DNS discovery is specifically aimed at container environments and cloud platform
 In container environments, the address of a server where an application is going to run on is generally not known ahead of application startup. Containers are launched quickly and in an unpredictable order, leading to a scenario where the addresses of all parts of a system are unknown ahead of time. This necessitates a configuration method which allows service discovery after application startup, which the previous method cannot handle.
 
 
-Dynamic configuration allows Varroa to start without knowing the addresses of any other Varroa instances nor its own role. The way the initial DNS discovery method works is by supplying hostnames for the commander and agent groups respectively.
+Dynamic configuration allows Varroa to start without knowing the addresses of any other Varroa instances nor its own role. The way the initial DNS discovery method works is by supplying hostnames for the Commander and Agent groups respectively.
 
 
 \begin{figure}[h]
@@ -118,9 +118,9 @@ During start up Varroa will continuously resolve these records, which must be de
 Then each address found in the records is compared to the address corresponding to its own hostname. 
 If a match is found, the instance will set its role according to the set of addresses it matches.
 
-Additionally, agents can use the commander address to locate the commander node and continuously attempt to connect to it until it is ready for agent connections.
+Additionally, Agents can use the commander address to locate the commander node and continuously attempt to connect to it until it is ready for Agent connections.
 
-The commander can also determine how many agents will connect to it using the agent address, or alternatively a agent count can be  provided at startup (for deployments on services where records are slowly updated as containers start).
+The commander can also determine how many Agents will connect to it using the Agent address, or alternatively a Agent count can be  provided at startup (for deployments on services where records are slowly updated as containers start).
 
 \begin{figure}
 \begin{lstlisting}
