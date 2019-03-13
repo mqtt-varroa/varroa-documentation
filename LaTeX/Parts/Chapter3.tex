@@ -1,9 +1,9 @@
 \chapter{Execution}\label{sec:Execution}
 To start a Varroa test the user needs to start a Commander and at least one Agent.
-The Agents periodically try to establish a connection to the Commander.
+The Agents periodically tries to establish a connection to the Commander.
 Once all Agents are connected the execution of the scenario starts.\\
 \\
-Varroa has two main modes of execution for now. One is to configure Varroa ahead of time manually or programmatically and then execute directly. The other is to use containers and utilize dynamic discovery.
+Varroa has two main modes of execution. One is to configure Varroa ahead of time manually or programmatically and then execute directly. The other is to use containers and utilize dynamic discovery.
 \section{Commander}
 \begin{figure}[H]
 	\begin{center}
@@ -38,7 +38,7 @@ Because of this the user only needs to restart the Commander to execute another 
 For better understanding of the temporal processes the just explained concepts are illustrated in figure \ref{pic:AgentStates}.
 
 \section{Configuration}
-Following are the two sequence sketches for direct (static initialization) configuration \ref{pic:staticExecution} and dynamic (DNS discovery based) \ref{pic:dynamicExecution} configuration.
+The Following sketches are the two sequences for direct (static initialization) configuration \ref{pic:staticExecution} and dynamic (DNS discovery based) \ref{pic:dynamicExecution} configuration.
 
 \subsection{Static configuration}
 \begin{figure}[h]
@@ -49,9 +49,9 @@ Following are the two sequence sketches for direct (static initialization) confi
 \end{center}
 \end{figure}
 
-Static configuration may be used on any infrastructure where hostname or IP addresses of all Varroa instances (Commander and Agents) are known ahead of time. This is the case on most typical systems, such as IaaS clouds where an instance is booted and assigned an address before the application is deployed onto that system.\\
+A Static configuration may be used on any infrastructure where the hostnames or IP addresses of all Varroa instances (Commander and Agents) are known ahead of time. This is the case on most of the typically used systems, such as IaaS clouds where an instance is booted and is assigned an address before the application is deployed onto the system.\\
 \\
-For static configuration, the user must provide an instance configuration, which configures the Varroa instance as a Commander or an Agent.
+To configure Varroa statically the user must provide an instance configuration, which sets up the Varroa instance as a Commander or an Agent.
 A detailed description of those configuration options can be found in the paragraphs below.
 %(or possibly both), as well as (optionally) the instance limits specifying how much load the Agent can generate.
 
@@ -99,9 +99,10 @@ A detailed description of those configuration options can be found in the paragr
 \end{center}
 \end{figure}
 
-DNS discovery specifically is aimed at container environments and cloud platforms. These types of platforms generally provide different methods of service discovery, which are necessary to allow the parts of a distributed systems to communicate with each other.
+DNS discovery is specifically aimed at container environments and cloud platforms. These types of platforms generally provide different methods of service discovery, which are necessary to allow the parts of a distributed system to communicate with each other.
 
-In container environments especially, the address of a server an application is going to run on is generally not known ahead of application startup. Containers are launched quickly and in an unpredictable order, leading to a scenario where the addresses of all parts of a system cannot be known ahead of time. This necessitates a configuration method which allows service discovery after application startup, which the previous method cannot handle.
+In container environments, the address of a server where an application is going to run on is generally not known ahead of application startup. Containers are launched quickly and in an unpredictable order, leading to a scenario where the addresses of all parts of a system are unknown ahead of time. This necessitates a configuration method which allows service discovery after application startup, which the previous method cannot handle.
+
 
 Dynamic configuration allows Varroa to start without knowing the addresses of any other Varroa instances nor its own role. The way the initial DNS discovery method works is by supplying hostnames for the commander and agent groups respectively.
 
@@ -113,7 +114,9 @@ Dynamic configuration allows Varroa to start without knowing the addresses of an
 \end{center}
 \end{figure}
 
-At startup Varroa will continuously resolve those records, which must be a round-robin A record, and compare each address found in the records to the address corresponding to its own hostname. If any address matches its own, the instance will set its role according to the set of addresses it matches.
+During start up Varroa will continuously resolve these records, which must be designed as round-robins.
+Then each address found in the records is compared to the address corresponding to its own hostname. 
+If a match is found, the instance will set its role according to the set of addresses it matches.
 
 Additionally, agents can use the commander address to locate the commander node and continuously attempt to connect to it until it is ready for agent connections.
 
