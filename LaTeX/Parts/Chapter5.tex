@@ -25,7 +25,7 @@ It contains:
 \begin{itemize}
 	\item \textbf{clientCountInChunk}: the amount of clients the chunk represents.
 	\item \textbf{clientOffset}: starting index of the clients contained in the chunk.
-	\item \textbf{clientGroupId}: identfier for the Client Group contained in the chunk.
+	\item \textbf{clientGroupId}: identifier for the Client Group contained in the chunk.
 	\item \textbf{clientGroupInformation}: contains information concerning the Client Group.
 	\item \textbf{commands}: a list of commands that are executed by the clients in the chunk.
 \end{itemize}
@@ -47,8 +47,8 @@ A Chunk is deterministically assigned to an Agent to ensure that it gets execute
 To ensure this determinism a round-robin distribution of the scenario's Chunks combined with a handshake mechanism is used:
 In accordance to figure \ref{pic:ChunkDistribution} the Commander tries to distribute a Chunk to an Agent who then answers with an accept or reject.
 If the Agent rejects the Chunk (see figure \ref{pic:RejectHandshake}) the Commander then tries to distribute the Chunk to the next Agent in the same manner until one Agent accepts.
-When accepting the Chunk the Agent waits for a Start Message from the Commander and upon receiving it the Agent starts executing the Chunk.
-After a successful execution of the Chunk the Agents sends a Finished Message to the Commander (see figure \ref{pic:AcceptHandshake}).
+When accepting the Chunk the Agent waits for a start message from the Commander and upon receiving it the Agent starts executing the Chunk.
+After a successful execution of the Chunk the Agents sends a finished message to the Commander (see figure \ref{pic:AcceptHandshake}).
 
 
 \begin{minipage}[ht]{0.48\textwidth}

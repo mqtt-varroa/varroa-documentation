@@ -1,7 +1,7 @@
 \chapter{Reporting}\label{sec:Reporting}
 Reporting is a core concept of Varroa.
-Its purpose is determine the result values of a Varroa test and output them in a verifiable document.
-For that reason there are entities that observe the parts of Varroa that execute the scenario.
+Its purpose is to determine the results of a Varroa test and output them in a verifiable document.
+For that reason there are entities that observe the parts of Varroa that execute the Scenario.
 These exist on different hierarchy levels.
 Figure \ref{fig:ReportingArchitecture} shows the entities that are responsible for observing the actions that have taken place as well as their hierarchy.
 
@@ -15,11 +15,10 @@ Figure \ref{fig:ReportingArchitecture} shows the entities that are responsible f
 \end{figure}
 The reporting architecture is organized in strong accordance to Varroas hierarchy.
 The data flow of the report happens bottom up from the Agents to the Commander.
-The reported data is recorded at the lowest level of the hierarchy namely the \emph{MqttAgentTracer} which tracks its MqttAgents' Actions.
+The reported data is recorded at the lowest level of the hierarchy namely the \emph{MqttAgentTracer} which tracks its MQTT Agents Actions.
 Subsequently the \emph{AgentAggregator} receives this data and aggregates it before passing the result to the Commander.
-The CommanderAggregator collects the received data 
-and then aggregates the whole information of all Agents and compiles it into the report.
-Figure \ref{fig:ReportingArchitecture} visualizes the realitationships between the components explained above.
+The Commander aggregator collects the received data and then aggregates the information of all Agents and compiles it into the report.
+Figure \ref{fig:ReportingArchitecture} visualizes the relationships between the components explained above.
 
 \section{Metrics}
 \begin{lstlisting}[caption={Reporting Output}, captionpos=, label={lst:ReportingOutput}, language=]
@@ -28,9 +27,9 @@ Figure \ref{fig:ReportingArchitecture} visualizes the realitationships between t
 };
 \end{lstlisting}
 Listing \ref{lst:ReportingOutput} shows an excerpt from a reporting output.
-The Number at the beginning references the Command this ActionReport corresponds to in the order they are defined in the Scenario.
+The Number at the beginning of the output line references the Command this Action report corresponds to the order in which they are defined in the Scenario.
 \subsection{Duration Sampler}
-The Duration Sampler gives metrics based on the duration of the executed Actions:
+The duration Sampler gives metrics based on the duration of the executed Actions:
 \begin{itemize}
 	\item \textbf{count:} the amount of executed Actions.
 	\item \textbf{mean:} the mean duration of the executed Actions.
@@ -39,12 +38,12 @@ The Duration Sampler gives metrics based on the duration of the executed Actions
 	\item \textbf{max:} the maximum duration of the executed Actions.
 \end{itemize}
 \subsection{Lateness Sampler}
-The Duration Sampler reports metrics based on the overruning of expected durations of the executed Actions:
+The Duration Sampler reports metrics based on the lateness of expected durations of the executed Actions:
 \begin{itemize}
-	\item \textbf{count:} the amount of Actions whose durations exeeded the expected duration.
+	\item \textbf{count:} the amount of Actions whose durations exceeded the expected duration.
 	\item \textbf{mean:} the mean lateness value of the actions.
 	\item \textbf{stdDev:} the standard deviation of the executed Actions lateness.
-	\item \textbf{min:} the minium lateness of the executed Actions.
+	\item \textbf{min:} the minimum lateness of the executed Actions.
 	\item \textbf{max:} the maximum lateness of the executed Actions.
 \end{itemize}
 
