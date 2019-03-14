@@ -24,9 +24,10 @@ When starting a Varroa Instance that is configured as a Commander (see \ref{sec:
 	In this state it distributes the Stages of the Scenario one after each other to the Agents.
 	It remains in this state until all Stages are successfully executed and then transfers its state into \emph{Scenario Finished}.
 	If one execution of a Stage errors this results in the failure of the whole Scenario -- logically the Commanders state is then \emph{Scenario Failed}.
+	\item As the last step the Commander always -- independent of execution success -- generates the final Report by aggregating the partial reports from the Agents.
 \end{itemize}
 
-To allow better comprehension figure \ref{pic:CommanderStates} illustrates this process.
+To allow better comprehension \figurename{} \ref{pic:CommanderStates} illustrates this process.
 
 \section{Agent}
 \begin{figure}[H]
@@ -36,12 +37,16 @@ To allow better comprehension figure \ref{pic:CommanderStates} illustrates this 
 	\label{pic:AgentStates}
 	\end{center}
 \end{figure}
-Upon starting a Varroa Instance as an Agent, it tries to connect to the configured Commander (see \ref{sec:agentConfig}).
-It periodically attempts to establish the connection until it succeeds.
-Then it waits for incoming Chunks from the Commander and executes them, implementing the handshake protocol introduced in \ref{sec:chunkDistribution}.
-The Agent continues doing so until it loses the connection to the Commander.\\
-In contrast to the Commander the Agents life-cycle does not stop after the execution of a Scenario.
-Because of this the user only needs to restart the Commander to execute another Scenario.
+Upon starting a Varroa Instance as an Agent (see \ref{sec:agentConfig}) it performs the following actions:
+\begin{itemize}
+	\item First it tries to connect to the configured Commander.
+	It periodically attempts to establish the connection until it succeeds.
+	\item Then it waits for incoming Chunks from the Commander and executes them, implementing the handshake protocol that will be introduced in \ref{sec:chunkDistribution}.
+	The Agent continues doing so until the Connection is closed by the Commander, which means the Scenario is executed completely.
+	\item In contrast to the Commander the Agent process does not terminate after the execution of a Scenario. Instead it returns to the first step and tries to reconnect to a Commander.
+	Because of this the user only needs to restart the Commander to execute another Scenario.
+\end{itemize}
+
 For better understanding of the temporal processes the just explained concepts are illustrated in figure \ref{pic:AgentStates}.
 
 \section{Configuration}
