@@ -208,6 +208,27 @@ To define a Lifecycle the user needs to specify:
 Commands are executed by Client Groups.
 Going into detail this means that the Command is executed by every client in the Client Group.
 Commands are contained in Lifecycles, which are assigned to Client Groups.
+
+The structure of Stages, Lifecycles and Commands is described by a small Domain Specific Language which adheres to the following grammar:
+
+\setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
+\begin{grammar}
+	<stages> ::= <lifecycles>
+	\alt <lifecycles><stages>
+	
+	<lifecycles> ::= <commands>
+	\alt <commands><lifecycles>
+	
+	<commands> := <command>
+	\alt <command><commands>
+	
+	<command> := <connect> \alt <disconnect> \alt <for> \alt <publish> \alt <ramp\_up> \alt <subscribe> \alt <unsubscribe> \alt <wait>
+	
+	<for> := <for\_header><commands><for\_footer>
+	
+\end{grammar}
+
 \subsection{connect}
 \begin{lstlisting}[caption={example for the XML definition of a connect Command}, captionpos=b, label={lst:connect}, language=XML]
 <connect broker="b1" expectedDuration="10s"/>
