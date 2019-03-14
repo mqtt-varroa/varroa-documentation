@@ -77,10 +77,14 @@ When defining a Client Group the user needs to specify:
 	\item \textbf{id:} the identifier to reference the Client Group.
 	\item \textbf{clientIdPattern:} a regular expression to deterministically create individual names for every MQTT client in the Client Group.
 	\item \textbf{count:} the amount of MQTT clients contained in the Client Group.
-	\item \textbf{mqtt:} MQTT properties of the MQTT clients. (see \ref{sec:mqttProperties})
+	\item \textbf{mqtt:} MQTT properties of the MQTT clients (see \lstlistingname{} \ref{lst:mqttProperties}).
+	\begin{itemize}
+		\item \textbf{version (requrired):} the MQTT version this Client Group implements.
+		%TODO \item \textbf{cleanStart (optional):} 
+		%TODO \item \textbf{sessionExpiryInterval (optional):}
+	\end{itemize}
 \end{itemize}
-
-\subsection{MQTT Properties}\label{sec:mqttProperties}
+\ 
 \begin{lstlisting}[caption={example for the XML definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
 <mqtt>
 	<version>5</version>
@@ -90,12 +94,6 @@ When defining a Client Group the user needs to specify:
 %	<sessionExpiryInterval>0x0</sessionExpiryInterval>
 %</mqtt>	
 %\end{lstlisting}
-The following MQTT properties can be defined:
-\begin{itemize}
-	\item \textbf{version (requrired):} the MQTT version this Client Group implements.
-	%TODO \item \textbf{cleanStart (optional):} 
-	%TODO \item \textbf{sessionExpiryInterval (optional):}
-\end{itemize}
 
 
 \section{Topic Groups} \label{sec:topicGroups}
