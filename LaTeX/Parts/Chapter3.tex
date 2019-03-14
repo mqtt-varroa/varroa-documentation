@@ -2,8 +2,7 @@
 To start a Varroa test the user needs to start a Commander and at least one Agent.
 The Agents periodically tries to establish a connection to the Commander.
 Once all Agents are connected the execution of the scenario starts.\\
-\\
-Varroa has two main modes of execution. One is to configure Varroa ahead of time manually or programmatically and then execute directly. The other is to use containers and utilize dynamic discovery.
+
 \section{Commander}
 \begin{figure}[H]
 	\begin{center}
@@ -50,24 +49,28 @@ Upon starting a Varroa Instance as an Agent (see \ref{sec:agentConfig}) it perfo
 For better understanding of the temporal processes the just explained concepts are illustrated in figure \ref{pic:AgentStates}.
 
 \section{Configuration}
-The Following sketches are the two sequences for direct (static initialization) configuration \ref{pic:staticExecution} and dynamic (DNS discovery based) \ref{pic:dynamicExecution} configuration.
+Varroa can be run with two different ways of configuration.
+One is to configure Varroa ahead of time -- manually or programmatically.
+The other is to use containers and utilize dynamic discovery of the Varroa Instances.
 
 \subsection{Static configuration}
 \begin{figure}[h]
 \begin{center}
 \includegraphics[scale=1]{Resources/PDF/ExecutionStaticInit}
-\caption{static execution}
+\caption{Static configuration}
 \label{pic:staticExecution}
 \end{center}
 \end{figure}
 
-A Static configuration may be used on any infrastructure where the hostnames or IP addresses of all Varroa instances (Commander and Agents) are known ahead of time. This is the case on most of the typically used systems, such as IaaS clouds where an instance is booted and is assigned an address before the application is deployed onto the system.\\
+A static configuration may be used on any infrastructure where the hostnames or IP addresses of all Varroa Instances (Commander and Agents) are known ahead of time. This is the case on most of the typically used systems, such as IaaS clouds where an instance is booted and is assigned an address before the application is deployed onto the system.\\
 \\
-To configure Varroa statically the user must provide an instance configuration, which sets up the Varroa instance as a Commander or an Agent.
-A detailed description of these configuration options can be found in the paragraphs below.
-%(or possibly both), as well as (optionally) the instance limits specifying how much load the Agent can generate.
+To configure Varroa statically the user must provide an Instance configuration, which sets up the Varroa Instance as a Commander or an Agent.
+It is also possible to configure a single Varroa Instance as both Commander and Agent.
+This allows simple execution of small tests on a single machine.
+\\
+A detailed description of the configuration options can be found below.
 
-\subsubsection{Commander}\label{sec:commanderConfig}
+\subsubsection{Commander configuration}\label{sec:commanderConfig}
 \begin{lstlisting}[caption={Commander XML configuration example}, captionpos=b, label={lst:commanderConfig}, language=XML]
 <varroa>
     <commander>
@@ -78,12 +81,12 @@ A detailed description of these configuration options can be found in the paragr
 </varroa>
 \end{lstlisting}
 \begin{itemize}
-	\item \textbf{bind-host:} specifies the Address the Commander binds to
-	\item \textbf{bind-port:} specifies the port the Commander binds to for waiting for Agent connections
-	\item \textbf{amount-agents:} specifies the amount of Agents that connect to the Commander
+	\item \textbf{bind-host:} specifies the address the Commander will accept Agent connections on.
+	\item \textbf{bind-port:} specifies the port the Commander waits for Agent connections on.
+	\item \textbf{amount-agents:} specifies the amount of Agents that the Commander awaits.
 \end{itemize}
 
-\subsubsection{Agent}\label{sec:agentConfig}
+\subsubsection{Agent configuration}\label{sec:agentConfig}
 \begin{lstlisting}[caption={Agent XML configuration example}, captionpos=b, label={lst:agentConfig}, language=XML]
 <varroa>
     <agent>
@@ -95,10 +98,10 @@ A detailed description of these configuration options can be found in the paragr
 </varroa>
 \end{lstlisting}
 \begin{itemize}
-	\item \textbf{commander-port:} specifies the port of the Commander
-	\item \textbf{commander-host:} specifies the Address of the Commander
-	\item \textbf{local-port:} specifies the local port the Agent uses for the outgoing connection to the Commander %TODO must be different on every Agent
-	\item \textbf{commander-retry-interval:} the time interval in which Agents try to connect to the Commander
+	\item \textbf{commander-host:} specifies the address of the Commander to connect to.
+	\item \textbf{commander-port:} specifies the port of the Commander.
+	\item \textbf{local-port:} specifies the local port the Agent uses for the outgoing connection to the Commander.
+	\item \textbf{commander-retry-interval:} the time interval in seconds in which the Agent tries to connect to the Commander.
 \end{itemize}
 
 \subsection{Dynamic configuration}
