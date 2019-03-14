@@ -1,11 +1,52 @@
 \chapter{Reporting}\label{sec:Reporting}
+\begin{lstlisting}[caption={Excerpt from a reporting output}, captionpos=b, label={lst:ReportingOutput}, language=]
+--------------- Command Report ---------------
+LifeCycle{lifeCycleId=waiters-1, clientGroupId=cg-1, clientCount=1}
+Connect{brokerAddress=broker.hivemq.com:1883}={
+	durationSampler=[count=1, mean=144ms, stdDev=0ns, min=144ms, max=144ms],
+	latenessSampler=[-], failedCount=0}
+Subscribe{subscription=[subscriptionId=subscription-1]}={
+	durationSampler=[count=1, mean=26ms, stdDev=0ns, min=26ms, max=26ms],
+	latenessSampler=[-], failedCount=0}
+---------------- End  Report -----------------
+\end{lstlisting}
+
 Reporting is a core concept of Varroa.
 Its purpose is to determine the results of a Varroa test and output them in a verifiable document.
 For that reason there are entities that observe the parts of Varroa that execute the Scenario.
-These exist on different hierarchy levels.
-Figure \ref{fig:ReportingArchitecture} shows the entities that are responsible for observing the actions that have taken place as well as their hierarchy.
+These exist on different hierarchy levels as later explained in \ref{sec:ReportingArchitecture}.
+The reports are output in a PDF file and on the Commander's console output.
+For the later an example is given in figure \ref{lst:ReportingOutput}.
 
-\section{Reporting Architecture}
+\section{Command Report}
+\begin{lstlisting}[caption={Example for a Command Report}, captionpos=b, label={lst:CommandReport}, language=]
+--------------- Command Report ---------------
+Publish{[...]}
+For{times=5}={[...]}
+---------------- End  Report -----------------
+\end{lstlisting}
+The Command Report contains aggregated metrics of every Command.
+They are output in the order in which the Commands were defined in the Scenario.
+With the exception of nested Commands, where the metrics of the inner Commands is output before those of the outer Command.
+An example is given in figure \ref{lst:CommandReport}
+
+\section{Action Report}
+\begin{lstlisting}[caption={Excerpt from Action Report}, captionpos=b, label={lst:ActionReport}, language=]
+--------------- Action Report ---------------
+Publish{[...]}
+Publish{[...]}
+Publish{[...]}
+Publish{[...]}
+Publish{[...]}
+For{times=5}={[...]}
+---------------- End  Report -----------------
+\end{lstlisting}
+The Action Report allows for a finer analysis than the Report.
+This is due to the fact that the Action Report does not aggregate the metrics of nested Commands like the For Command.
+Instead it outputs all iterations contained in the For Command separately.
+This difference becomes clear when comparing figure \ref{lst:CommandReport} and \ref{lst:ActionReport}.
+
+\section{Reporting Architecture}\label{sec:ReportingArchitecture}
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.75]{Resources/PDF/ReportingArchitecture}
@@ -21,13 +62,6 @@ The Commander aggregator collects the received data and then aggregates the info
 Figure \ref{fig:ReportingArchitecture} visualizes the relationships between the components explained above.
 
 \section{Metrics}
-\begin{lstlisting}[caption={Reporting Output}, captionpos=, label={lst:ReportingOutput}, language=]
-1=ActionReport{
-	durationSampler=[count=50, mean=146ms, stdDev=139ms, min=39ms, max=694ms], latenessSampler=[count=31, mean=118ms, stdDev=155ms, min=1ms, max=614ms]
-};
-\end{lstlisting}
-Listing \ref{lst:ReportingOutput} shows an excerpt from a reporting output.
-The number at the beginning of the output line references the order in which the Commands are defined in the Scenario.
 \subsection{Duration Sampler}
 The duration Sampler gives metrics based on the duration of the executed Actions:
 \begin{itemize}
@@ -48,5 +82,7 @@ The Duration Sampler reports metrics based on the lateness of expected durations
 \end{itemize}
 
 \subsection{Failed Count}
-%TODO
+The failed count indicates how many of the Actions are executed unsuccessfully.
+
+
 
