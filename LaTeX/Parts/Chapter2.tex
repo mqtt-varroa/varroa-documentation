@@ -3,20 +3,20 @@ To understand the workings of Varroa, we will have to take a look at the differe
 Furthermore we explain the basic concepts of MQTT.
 
 \section{Varroa Distributed System Concepts}
-A Varroa Distributed System is an orchestration of multiple Varroa instances consisting of one Commander and at least one Agent.
-Varroa is organized as a distributed system, due to the impossibility of creating enough MQTT clients on a single machine to overload an MQTT broker, especially if the broker is also a distributed system.
+A Varroa Distributed System is an orchestration of multiple Varroa Instances consisting of one Commander and at least one Agent.
+Varroa is organized as a distributed system due to the impossibility of creating enough MQTT clients on a single machine to overload an MQTT broker, especially if the broker is also a distributed system.
 
 \paragraph{Varroa Instance}
-A Varroa instance is a running Varroa process in a single JVM, which either can be a Commander or an Agent.
+A Varroa instance is a running Varroa process in a single JVM, which can be a Commander and/or an Agent.
 
 \paragraph{Commander}
-The Commander is a part of the Varroa Distributed system that parses the scenario.
-It generates Chunks and distributes them to the Agents.
+The Commander is a part of the Varroa Distributed system that processes the Scenario.
+It distributes the workload of the Scenario to the Agents through Chunks.
 Only one Commander exists in a Varroa Distributed System.
 
 \paragraph{Agent}
-Agents are part of the Varroa Distributed system.
-They receive Chunks from the Commander and pass them to their MQTT Agents.
+Agents are part of the Varroa Distributed System.
+They are responsible for executing the Scenarios workload by receiving Chunks from the Commander and passing them to their MQTT Agents.
 A Varroa Distributed System contains at least one Agent.
 
 \paragraph{MQTT Agent}
@@ -28,58 +28,62 @@ The Scenario is split in Chunks by the Commander and then those Chunks are distr
 
 \section{Varroa Scenario Concepts}
 The integral idea of Varroa is testing Scenarios, which means simulating the behaviour of a large amount of MQTT clients.
-It tests whether the broker can handle the load associated with these clients.
-A scenario is an abstract representation of a real MQTT use case.
+It tests whether the MQTT broker can handle the load associated with these clients.
+A Scenario is an abstract representation of a real MQTT use case.
 It defines the topology of all participating MQTT clients and brokers.
-
-\paragraph{MQTT Client}
-A MQTT client is used to execute the Commands to create load.
-Those clients implement the MQTT protocol using the \emph{HiveMQ MQTT Client}.
 
 \paragraph{Client Group}
 Client Groups are a part of the Scenario.
-They enable the user to define the behaviour and properties of a group of MQTT clients with a configurable size.
-These MQTT clients are created by Varroa for the purpose of simulating the MQTT clients of a scenario.
-%TODO lifespan = that, review change
-The lifespan of the spawned MQTT clients does not exceed that of a Scenario.
-
-\paragraph{Command}
-%TODO anfetten maybe
-A command is an abstract representation of a work step that must be executed by a MQTT client.
-
-\paragraph{Action}
-An Action is the act of executing a command by a MQTT Agent.
-This feature is needed for reporting.
+They enable the user to define an abstract group of MQTT clients with similar behaviour and properties.
 
 \paragraph{Topic Group}
 A Topic Group represents a number of topics that share a naming pattern.
 This concept enables the user to model the interaction between Client Groups and a number of similar topics.
 
+\paragraph{Stage}
+Stages are execution steps of the Scenario. Stages are executed serially.
+
+\paragraph{Lifecycle}
+Lifecycles are part of a Stage.
+One Lifecycle defines the behaviour of one Client Group within the Stage.
+The Lifecycles contained in a Stage are executed in parallel.
+
+\paragraph{Command}
+A Lifecycle consists of multiple Commands.
+A Command is an abstract representation of a work step that must be executed by a MQTT Agent.
+
+\paragraph{Action}
+An Action is an actual execution of a Command by a MQTT Agent.
+
 \section{General MQTT Concepts}
-\paragraph{Broker}
+
+\paragraph{MQTT Broker}
 The broker serves as an intermediary between publishers and subscribers.
 It takes over the routing of the exchanged MQTT messages and is the central control authority of a MQTT network.
 %TODO cite Georg
-\paragraph{Client}
-A client that implements the MQTT protocol. 
+
+\paragraph{MQTT Client}
+A client that implements the MQTT protocol.
+We use the \emph{HiveMQ MQTT Client} as an implementation.
+
 \paragraph{Topic}
 Topics are strings separated by slashes that do not contain wildcards.
 Messages published with a topic are delivered to subscribers that have registered matching Topic Filters.
+
 \paragraph{Topic Filter}
 A Topic Filter is a chain of strings delimited by slashes that 
 can cover one or more topics. 
 It can also contain wildcards: a single plus character covers one hierarchy level, a double cross selects all possible following levels.
-\paragraph{Publisher}
+
+\paragraph{Publish}
 Publishers are clients that produce data.
-They send messages with a specific topic to the broker.
-\paragraph{Subscriber}
+They send messages with a specific Topic to the broker.
+
+\paragraph{Subscribe}
 Subscribers are clients that subscribe to a subset or to all messages sent via the
 MQTT network.
-They log on to the broker and register with one or more topic filters that specify the topics, which determine what messages they want to receive.
+They log on to the broker and register with one or more Topic Filters that specify the topics, which determine what messages they want to receive.
 %TODO cite Georg
-\paragraph{Connect}
-A connect describes the process of a client establishing a connection to a broker.
-\paragraph{Disconnect}
-A disconnect describes the process of a client terminating its connection to a broker.
+
 
 
