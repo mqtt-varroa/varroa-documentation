@@ -68,7 +68,16 @@ To configure Varroa statically the user must provide an Instance configuration, 
 It is also possible to configure a single Varroa Instance as both Commander and Agent.
 This allows simple execution of small tests on a single machine.
 \\
-A detailed description of the configuration options can be found below.
+If the Varroa Instance is configured as a Commander the user must also provide a Scenario.
+\\
+Both Instance configuration and the Scenario are defined in XML files.
+These are referenced by the command line parameters -I and -S:
+\begin{lstlisting}[caption={Command line configuration examples}, captionpos=b, label={lst:commanderConfig}, language=bash]
+java -jar varroa-1.0.jar -I path/to/commander.xml -S path/to/scenario.xml
+java -jar varroa-1.0.jar -I path/to/agent.xml
+\end{lstlisting}
+
+A detailed description of the Instance configuration options can be found below.
 
 \subsubsection{Commander configuration}\label{sec:commanderConfig}
 \begin{lstlisting}[caption={Commander XML configuration example}, captionpos=b, label={lst:commanderConfig}, language=XML]
@@ -137,7 +146,7 @@ Additionally, Agents can use the commander address to locate the commander node 
 
 The commander can also determine how many Agents will connect to it using the Agent address, or alternatively a Agent count can be  provided at startup (for deployments on services where records are slowly updated as containers start).
 
-\begin{figure}
+\begin{figure}[h]
 \begin{lstlisting}
 VARROA_DNS_AGENT=tasks.agents
 VARROA_DNS_COMMANDER=tasks.commander
