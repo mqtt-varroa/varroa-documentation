@@ -1,7 +1,7 @@
 \chapter{Architecture}\label{sec:Architecture}
 Varroas architecture is organised as a distributed system, whereas there are two main roles in the system: the Agents and the Commander.
 The Commander is the central unit that passes work packages of the Scenario to the Agents.
-In contrast the Agents process the passed packages and create MQTT clients to execute the testing process.
+In contrast the Agents process the passed packages and create MQTT clients to execute them.
 %The Commander parses the Scenario, splits it into chunks and then distributes it among the agents.
 
 \section{Varroa Distributed System Architecture}
@@ -23,11 +23,12 @@ It is then handled by the Agent it is distributed to.
 The Agent then creates or uses existing MQTT Agents to execute the Chunk.
 The most important contained bits of information are:
 \begin{itemize}
-	\item \textbf{clientCountInChunk}: the amount of clients the chunk represents.
-	\item \textbf{clientOffset}: starting index of the clients contained in the chunk.
-	\item \textbf{clientGroupId}: identifier for the Client Group contained in the chunk.
+	\item \textbf{clientGroupId}: identifier for the Client Group the Chunk should be executed for.
 	\item \textbf{clientGroupInformation}: contains information concerning the Client Group.
-	\item \textbf{commands}: a list of commands that are executed by the clients in the chunk.
+	\item \textbf{clientCountInChunk}: the amount of clients the Chunk represents.
+	\item \textbf{clientOffset}: starting index of the clients inside the Client Group. clientOffset and clientCountInChunk identify the subset of clients out of the Client Group this Chunk is executed for.
+	\item \textbf{actionOffset}: identifies the index of the first action that should be executed -- acts like a program counter in the Scenario.
+	\item \textbf{commands}: a list of commands that are executed by the clients in the Chunk.
 \end{itemize}
 
 \subsection{Chunk Distribution}\label{sec:chunkDistribution}
