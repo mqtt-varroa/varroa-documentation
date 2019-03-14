@@ -207,7 +207,9 @@ To define a Lifecycle the user needs to specify:
 \end{itemize}
 
 \section{Commands}\label{sec:commands}
-A Command has to be executed by a Client Group, it must be contained in a Lifecycle.
+Commands are executed by Client Groups.
+Going into detail this means that the Command is executed by every client in the Client Group.
+Commands are contained in Lifecycles, which are assigned to Client Groups.
 \subsection{connect}
 \begin{lstlisting}[caption={example for the XML definition of a connect Command}, captionpos=b, label={lst:connect}, language=XML]
 <connect broker="b1" expectedDuration="10s"/>
@@ -247,7 +249,7 @@ It has the following parameters:
 		\end{itemize}
 	\item \textbf{qos (optional):} the quality of service.
 	\item \textbf{waitForACK (optional):} whether the Client Group waits for the ACK from the broker.
-	\item \textbf{count (required when a rate is given):} the amount of publishes.
+	\item \textbf{count (required when a rate is given):} the amount of publishes for every client in the Client Group to execute.
 	\item \textbf{rate (optional):} the rate at witch the publishes are executed.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
 \end{itemize}
