@@ -21,7 +21,7 @@ Every Agent holds a number of MQTT Agents and each MQTT Agent manages one MQTT C
 A chunk is a work package of the scenario execution designed to be distributed from the Commander to its Agents.
 It is then handled by the Agent it is distributed to.
 The Agent then creates or uses existing MQTT Agents to execute the Chunk.
-It contains:
+The most important contained bits of information are:
 \begin{itemize}
 	\item \textbf{clientCountInChunk}: the amount of clients the chunk represents.
 	\item \textbf{clientOffset}: starting index of the clients contained in the chunk.
@@ -29,10 +29,6 @@ It contains:
 	\item \textbf{clientGroupInformation}: contains information concerning the Client Group.
 	\item \textbf{commands}: a list of commands that are executed by the clients in the chunk.
 \end{itemize}
-%\item \textbf{stageDuration}: the duration of the stage this chunk belongs to.
-%\item \textbf{lifecycleRate}: the rate at which the contained commands are executed.
-%Due to the distributed nature of Varroa it was necessary to be able to spread the information contained in the scenario.
-%To secure a deterministic distribution of a scenario's data the chunks had to be evenly spread across the initialized Agents.
 
 \subsection{Chunk Distribution}\label{sec:chunkDistribution}
 \begin{figure}[h]
@@ -43,7 +39,6 @@ It contains:
 	\end{center}
 \end{figure}
 A Chunk is deterministically assigned to an Agent to ensure that it gets executed by the same Agent even on multiple runs of the scenario. This determinism is needed to avoid fluctuation of reporting results that would be caused by Varroa and not the MQTT system under test.
-%To secure a deterministic execution of a scenario the every chunk needs to be distributed to the same Agent in every execution of the scenario.
 To ensure this determinism a round-robin distribution of the scenario's Chunks combined with a handshake mechanism is used:
 In accordance to figure \ref{pic:ChunkDistribution} the Commander tries to distribute a Chunk to an Agent who then answers with an accept or reject.
 If the Agent rejects the Chunk (see figure \ref{pic:RejectHandshake}) the Commander then tries to distribute the Chunk to the next Agent in the same manner until one Agent accepts.
