@@ -12,16 +12,20 @@ Varroa has two main modes of execution. One is to configure Varroa ahead of time
 	\label{pic:CommanderStates}
 	\end{center}
 \end{figure}
-After starting a Varroa Instance that is configured as a Commander (see \ref{sec:commanderConfig}) it waits for the Agents to connect.
-Until all Agents are successfully connected the Commander remains in the \emph{Waiting for Agents} state.
-As the last missing Agent connects the Commander switches its state to \emph{All Agents Connected}.
-Then it parses the Scenario's XML. 
-As soon as this is done, the Commander starts to distribute the Scenario data amongst the Agents.
-After finishing this it sets its state to \emph{Scenario Data Distributed}.
-After this the Commander begins to distribute the first stage to the Agents.
-In doing so the Commander changes its state to \emph{Scenario in Progress}.
-It remains in this state until all stages are executed successfully and then transfers its state into \emph{Scenario Finished}.
-Contrary to this case a faulty execution of a stage results in the failure of the whole Scenario, logically the Commanders state is then \emph{Scenario Failed}.
+When starting a Varroa Instance that is configured as a Commander (see \ref{sec:commanderConfig}) it performs the following actions:
+\begin{itemize}
+	\item First it parses and validates the Scenario.
+	\item Then it waits for the Agents to connect.
+	Until all Agents are successfully connected it remains in the \emph{Waiting for Agents} state.
+	As the last missing Agent has connected to the Commander it switches its state to \emph{All Agents Connected}.
+	\item When all Agents are connected, the Commander starts to distribute the Scenario data amongst the Agents. After this is finished the state is set to \emph{Scenario Data Distributed}.
+	\item After the preceding initiation steps the actual distribution and execution of the Scenario is started.
+	In doing so the Commander changes its state to \emph{Scenario in Progress}.
+	In this state it distributes the Stages of the Scenario one after each other to the Agents.
+	It remains in this state until all Stages are successfully executed and then transfers its state into \emph{Scenario Finished}.
+	If one execution of a Stage errors this results in the failure of the whole Scenario -- logically the Commanders state is then \emph{Scenario Failed}.
+\end{itemize}
+
 To allow better comprehension figure \ref{pic:CommanderStates} illustrates this process.
 
 \section{Agent}
