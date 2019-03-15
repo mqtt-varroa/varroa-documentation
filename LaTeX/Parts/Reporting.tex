@@ -1,7 +1,9 @@
 \chapter{Reporting}\label{sec:Reporting}
 Reporting is a core concept of Varroa.
 Its purpose is to determine the results of a Varroa test and output them in a document.
-The report is output in a PDF file and printed to the Commander's console.
+The observation of Varroa working process is realized by separate entities which are woven into its architecture.
+This concept is explained in \ref{sec:ReportingArchitecture}.
+The report is output as a PDF file and printed to the Commander's console.
 For the latter an example is given in figure \ref{lst:ReportingOutput}.
 \\
 \begin{lstlisting}[caption={Excerpt from a reporting output}, captionpos=b, label={lst:ReportingOutput}, language=]
@@ -21,10 +23,26 @@ Disconnect={
 	failedCount=0}
 ---------------- End  Report -----------------
 \end{lstlisting}
+The results of a Varroa test are recorded per Action execution -- which means per Command execution by a MQTT Agent.
+The same Actions of different clients in the same Client Group are aggregated and output as a Command Report (\ref{sec:commandsReport}).
+Different metrics are output for each of these Command Reports (\ref{sec:metrics}).
+This results in a single Action Report for each Action of a Client Group.
 
-The results of a Varroa test are recorded per Action -- which means per Command execution by a MQTT Agent.
-The same Actions of different clients in the same Client Group are aggregated.
-This results in a single Action Report for each Action per Client Group.
+\newpage
+\section{Commands Report}
+\label{sec:commandsReport}
+%The Action Reports are further aggregated per Command.
+%\\
+\begin{lstlisting}[caption={Example for a Commands Report}, captionpos=b, label={lst:CommandReport}, language=]
+-------------- Command  Reports --------------
+Publish{[...]}
+For{times=5}={[...]}
+---------------- End  Report -----------------
+\end{lstlisting}
+The Commands Report contains aggregated metrics for every Command.
+They are output in the order in which the Commands were defined in the Scenario.
+With the exception of nested Commands, where the metrics of the inner Commands is output before those of the outer Command.
+An example is given in figure \ref{lst:CommandReport}
 
 \section{Actions Report}
 \begin{lstlisting}[caption={Excerpt from Actions Report}, captionpos=b, label={lst:ActionReport}, language=]
@@ -37,29 +55,13 @@ Publish{[...]}
 For{times=5}={[...]}
 ---------------- End  Report -----------------
 \end{lstlisting}
-The Actions Report allows for a finer analysis than the Report.
-This is due to the fact that the Action Report does not aggregate the metrics of nested Commands like the For Command.
-Instead it outputs all iterations contained in the For Command separately.
+The Actions Report allows for a finer analysis of the Scenario than the Commands Report.
+This is due to the fact that the Actions Report does not aggregate the metrics of nested Commands like the \emph{For Command}.
+Instead it outputs all iterations contained in the \emph{For Command} separately.
 This difference becomes clear when comparing figure \ref{lst:CommandReport} and \ref{lst:ActionReport}.
 
-\section{Commands Report}
-The Action Reports are further aggregated per Command.
-\\
-\begin{lstlisting}[caption={Example for a Commands Report}, captionpos=b, label={lst:CommandReport}, language=]
--------------- Command  Reports --------------
-Publish{[...]}
-For{times=5}={[...]}
----------------- End  Report -----------------
-\end{lstlisting}
-The Commands Report contains aggregated metrics of every Command.
-They are output in the order in which the Commands were defined in the Scenario.
-With the exception of nested Commands, where the metrics of the inner Commands is output before those of the outer Command.
-An example is given in figure \ref{lst:CommandReport}
-
+\newpage
 \section{Reporting Architecture}\label{sec:ReportingArchitecture}
-For that reason there are entities that observe the parts of Varroa that execute the Scenario.
-These exist on different hierarchy levels as later explained in \ref{sec:ReportingArchitecture}. % TODO
-
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.75]{Resources/PDF/ReportingArchitecture}
@@ -74,7 +76,7 @@ Subsequently the \emph{AgentAggregator} receives this data and aggregates it bef
 The Commander aggregator collects the received data and then aggregates the information of all Agents and compiles it into the report.
 Figure \ref{fig:ReportingArchitecture} visualizes the relationships between the components explained above.
 
-\section{Metrics}
+\section{Metrics}\label{sec:metrics}
 \subsection{Duration Sampler}
 The duration Sampler gives metrics based on the duration of the executed Actions:
 \begin{itemize}
