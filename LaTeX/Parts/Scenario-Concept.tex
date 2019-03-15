@@ -248,13 +248,13 @@ It has the following parameters:
 			\item \textbf{mustache:} generates payloads based on a mustache.js template given in the message parameter.
 			\item \textbf{regex:} generates payloads based on a regex pattern given in the message parameter.
 		\end{itemize}
-	\item \textbf{qos (optional, default=0):} the MQTT Quality of Service level the messages are published with. Possible values: 0, 1 and 2
-	\item \textbf{waitForAck (optional, default=false):} whether the Client Group waits for the acknowledgement of the message from the broker before continuing to publish the next message.
+	\item \textbf{qos (default=0):} the MQTT Quality of Service level the messages are published with. Possible values: 0, 1 and 2
+	\item \textbf{waitForAck (default=false):} whether the Client Group waits for the acknowledgement of the message from the broker before continuing to publish the next message.
 	\item \textbf{count (default=1):} the amount of messages every MQTT client in the Client Group publishes.
 	\item \textbf{rate (optional):} the rate at witch the MQTT clients publish the messages. If waitForAck is true and waiting for the acknowledgement exceeds a rate interval, the next message is published immediately after the previous one is acknowledged.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
-
+\newpage
 \subsection{Subscribe}
 \begin{lstlisting}[caption={Example for the XML definition of a Subscibe Command}, captionpos=b, label={lst:subscirbe}, language=XML]
 <subscribe subscription="sub1" qos="1"/>
@@ -263,7 +263,7 @@ A Subscribe Command gives an order to the Client Group to subscribe.
 It has the following parameters:
 \begin{itemize}
 	\item \textbf{subscription:} references the Subscription to be executed (see \ref{sec:subscriptions}).
-	\item \textbf{qos (optional, default=2):} the maximum MQTT Quality of Service level with which the matching publish messages are consumed.
+	\item \textbf{qos (default=2):} the maximum MQTT Quality of Service level with which the matching publish messages are consumed.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
 
