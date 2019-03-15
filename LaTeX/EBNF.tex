@@ -1,0 +1,74 @@
+\chapter{Scenario Domain Specific Language}\label{sec:ScenarioDomainSpecificLanguage}
+\setlength{\grammarparsep}{14pt plus 1pt minus 1pt} % increase separation between rules
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS
+For the description of a Scenario Varroa uses a small Domain Specific Language.
+As the default implementation of the Varroa DSL is in XML most productions start with a opening XML tag and end with a closing XML tag. 
+For brevity these are not explicitly described in the grammar. 
+The DSL adheres to the following grammar:
+\begin{grammar}
+	<scenario> := 				<descriptors><stages>
+	
+	<descriptors> :=			<requiredDescriptors><optionalDescriptors>
+	
+	<requiredDescriptors> := 	<broker><clientGroups>
+	
+	<optionalDescriptors> := 	<topicGroups><subscriptions><waitPatterns>
+								\alt <topicGroups><subscriptions>
+								\alt <topicGroups><waitPatterns>
+								\alt <subscriptions><waitPatterns>
+								\alt <topicGroups>
+								\alt <subscriptions>
+								\alt <waitPatterns>
+								\alt <empty>
+
+	<broker> := <brokerAttributes>
+
+	<clientGroups> := 	<clientGroup> <moreClientGroups>
+						\alt <clientGroup>
+						
+	<moreClientGroups> := <clientGroup> <moreClientGroups>
+							\alt <clientGroup>
+	
+	<clientGroup>  :=   <clientGroupAttributes>
+
+	<topicGroups> := 	<topicGroup><moreTopicGroups>
+						\alt <topicGroup>
+						
+	<moreTopicGroups> := <topicGroup> <moreTopicGroups>
+						\alt <topicGroup>
+						
+	<topicGroup>  :=    <topicGroupAttributes>
+
+	<subscriptions> :=		<subscription><moreSubscriptionsGroups>
+							\alt <subscription>
+	
+	<moreSubscriptionsGroups> := 	<subscription> <moreSubscriptionsGroups>
+							\alt <subscription>
+	
+	<subscription>  :=		<dynamicSubscription>
+							\alt <topicFilter>
+
+	<waitPatterns> := <waitPattern> <moreWaitPatterns>
+						\alt <waitPattern>
+						
+	<moreWaitPatterns> := <waitPattern> <moreWaitPatterns>
+						\alt <waitPattern>
+						
+	<waitPattern>	:= <waitPatternAttributes>
+
+	<stages> := <stage> <moreStages>
+				\alt <stage>
+				
+	<moreStages> := <stage> <moreStages>
+				\alt <stage>
+					
+	<stage>		:= <lifeCycles>
+	
+	<lifeCycles> := <lifeCycle> <moreLifeCycles>
+				\alt <lifeCycle>
+				
+	<lifeCycle>  := <commands>
+	
+	<commands> := <command>
+				\alt <command><commands>
+\end{grammar}
