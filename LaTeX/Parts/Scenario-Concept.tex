@@ -223,7 +223,7 @@ The Client Group disconnects from the broker it is connected to.
 \subsection{publish}
 \begin{lstlisting}[caption={example for the XML definition of a publish Commmand}, captionpos=b, label={lst:publish}, language=XML]
 <publish topicGroup="tg1" count="10" message="message" rate="100/1s"/>
-<publish topicGroup="tg1" count="10" payloadGenerator="randomAlphaNumeric"/>
+<publish topicGroup="tg1" message="10" payloadGenerator="randomAlphaNumeric"/>
 <publish topicGroup="tg1" message="{{clientId}}" payloadGenerator="mustache"/>
 <publish topicGroup="tg1" message="payload[0-9]{10}" payloadGenerator="regex"/>
 \end{lstlisting}
