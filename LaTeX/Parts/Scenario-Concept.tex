@@ -215,7 +215,7 @@ or
 	<moreWaitPatterns> := <waitPattern> <moreWaitPatterns>
 						\alt <waitPattern>
 						
-	<waitPattern>	:= <waitPatternAttrinutes>
+	<waitPattern>	:= <waitPatternAttrimutes>
 \end{grammar}
 \begin{lstlisting}[caption={example for the XML definition of waitPatterns}, captionpos=b, label={lst:waitPatterns}, language=XML]
 <scenario>
@@ -243,7 +243,7 @@ As seen in the example above, the following parameters need to be specified:
 				\alt <stage>
 				
 	<moreStages> := <stage> <moreStages>
-					\alt <stage>
+				\alt <stage>
 					
 	<stage>		:= <lifeCycles>
 	
@@ -253,7 +253,7 @@ As seen in the example above, the following parameters need to be specified:
 	<lifeCycle>  := <commands>
 	
 	<commands> := <command>
-			\alt <command><commands>
+				\alt <command><commands>
 \end{grammar}
 \begin{lstlisting}[caption={example for the XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
 <scenario>
