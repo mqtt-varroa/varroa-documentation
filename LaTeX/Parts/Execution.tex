@@ -83,34 +83,34 @@ A detailed description of the Instance configuration options can be found below.
 \begin{lstlisting}[caption={Commander XML configuration example}, captionpos=b, label={lst:commanderConfig}, language=XML]
 <varroa>
     <commander>
-		<bind-host>192.127.0.1</bind-host>
-        <bind-port>12345</bind-port>
-        <amount-agents>3</amount-agents>
+		<bindHost>192.127.0.1</bindHost>
+        <bindPort>12345</bindPort>
+        <amountAgents>3</amountAgents>
     </commander>
 </varroa>
 \end{lstlisting}
 \begin{itemize}
-	\item \textbf{bind-host:} specifies the address the Commander will accept Agent connections on.
-	\item \textbf{bind-port:} specifies the port the Commander waits for Agent connections on.
-	\item \textbf{amount-agents:} specifies the amount of Agents that the Commander awaits.
+	\item \textbf{bindHost:} specifies the address the Commander will accept Agent connections on.
+	\item \textbf{bindPort:} specifies the port the Commander waits for Agent connections on.
+	\item \textbf{amountAgents:} specifies the amount of Agents that the Commander awaits.
 \end{itemize}
 
 \subsubsection{Agent configuration}\label{sec:agentConfig}
 \begin{lstlisting}[caption={Agent XML configuration example}, captionpos=b, label={lst:agentConfig}, language=XML]
 <varroa>
     <agent>
-		<commander-host>192.127.0.1</commander-host>
-        <commander-port>12345</commander-port>
-        <local-port>23458</local-port>
-		<commander-retry-interval>10</commander-retry-interval>
+		<commanderHost>192.127.0.1</commanderHost>
+        <commanderPort>12345</commanderPort>
+        <localPort>23458</localPort>
+		<commanderRetryInterval>10</commanderRetryInterval>
     </agent>
 </varroa>
 \end{lstlisting}
 \begin{itemize}
-	\item \textbf{commander-host:} specifies the address of the Commander to connect to.
-	\item \textbf{commander-port:} specifies the port of the Commander.
-	\item \textbf{local-port:} specifies the local port the Agent uses for the outgoing connection to the Commander.
-	\item \textbf{commander-retry-interval:} the time interval in seconds in which the Agent tries to connect to the Commander.
+	\item \textbf{commanderHost:} specifies the address of the Commander to connect to.
+	\item \textbf{commanderPort:} specifies the port of the Commander.
+	\item \textbf{localPort:} specifies the local port the Agent uses for the outgoing connection to the Commander.
+	\item \textbf{commanderRetryInterval:} the time interval in seconds in which the Agent tries to connect to the Commander.
 \end{itemize}
 
 \subsection{Dynamic configuration}
