@@ -3,7 +3,7 @@ A Varroa test is the execution of a user defined Scenario, which is specified in
 To define a valid scenario the user needs to define the topology of the Scenario and the behaviour of its components.
 A formal definition of the structure of the Scenario definition is given in Appendix \ref{sec:ScenarioDomainSpecificLanguage}.
 An example for the outline of a Scenario XML file is given in Listing \ref{lst:scenario}.
-\begin{lstlisting}[caption={example for the XML definition of the Scenario}, captionpos=b, label={lst:scenario}, language=XML]
+\begin{lstlisting}[caption={Example for the XML definition of the Scenario}, captionpos=b, label={lst:scenario}, language=XML]
 <scenario>
 	<broker id="b1">
 		<!-- definition broker parameters -->
@@ -32,7 +32,7 @@ An example for the outline of a Scenario XML file is given in Listing \ref{lst:s
 \end{lstlisting}
 
 \section{Broker}
-\begin{lstlisting}[caption={example for the XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
+\begin{lstlisting}[caption={Example for the XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
 <scenario>
 	<broker id="b1">
 		<address>broker.hivemq.com</address>
@@ -44,19 +44,19 @@ The broker is the central component whose performance and stress resistance is t
 For this the user needs to define:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the broker.
-	\item \textbf{address:} the address of the broker can either be a IPv4-Address or a Fully-Qualified-Domain-Name.
+	\item \textbf{address:} the address of the broker can either be a IP-Address or a Fully-Qualified-Domain-Name.
 	\item \textbf{port:} the port on which the broker is waiting for connections.
 \end{itemize}
 
 \section{Client Groups}
-\begin{lstlisting}[caption={example for the XML definition of Client Groups}, captionpos=b, label={lst:clientGroups}, language=XML]
+\begin{lstlisting}[caption={Example for the XML definition of Client Groups}, captionpos=b, label={lst:clientGroups}, language=XML]
 <scenario>
 	<clientGroups>
 		<clientGroup id="cg1">
 			<clientIdPattern>A[1-9]+</clientIdPattern>
 			<count>100</count>
 			<mqtt>
-				<!-- MQTT properties -->
+				<version>5</version>
 			</mqtt>
 		</clientGroup>
 
@@ -71,26 +71,26 @@ When defining a Client Group the user needs to specify:
 	\item \textbf{id:} the identifier to reference the Client Group.
 	\item \textbf{clientIdPattern:} a regular expression to deterministically create individual names for every MQTT client in the Client Group.
 	\item \textbf{count:} the amount of MQTT clients contained in the Client Group.
-	\item \textbf{mqtt:} MQTT properties of the MQTT clients (see \lstlistingname{} \ref{lst:mqttProperties}).
+	\item \textbf{mqtt:} MQTT properties of the MQTT clients in the Client Group.
 	\begin{itemize}
-		\item \textbf{version (required):} the MQTT version this Client Group implements.
+		\item \textbf{version:} the MQTT version of the MQTT clients in the Client Group.
 		%TODO \item \textbf{cleanStart (optional):} 
 		%TODO \item \textbf{sessionExpiryInterval (optional):}
 	\end{itemize}
 \end{itemize}
 
-\begin{lstlisting}[caption={example for the XML definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
-<mqtt>
-	<version>5</version>
-<\mqtt>
-\end{lstlisting}
+%\begin{lstlisting}[caption={Example for the XML definition of MQTT properties}, captionpos=b, %label={lst:mqttProperties}, language=XML]
+%<mqtt>
+%	<version>5</version>
+%<\mqtt>
+%\end{lstlisting}
 %	<cleanStart>true</cleanStart>
 %	<sessionExpiryInterval>0x0</sessionExpiryInterval>
 %</mqtt>	
 %\end{lstlisting}
 
 \section{Topic Groups} \label{sec:topicGroups}
-\begin{lstlisting}[caption={example for the XML definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
+\begin{lstlisting}[caption={Example for the XML definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
 <scenario>
 	<topicGroups>
 		<topicGroup id="tg1">
@@ -107,12 +107,12 @@ A Topic Group is a specific amount of MQTT Topics whose names are created from t
 When defining a Topic Group the user needs to specify:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the Topic Group.
-	\item \textbf{topicNamePattern:} a regular expression to deterministically create individual topic names for every member of the Topic Group.
-	\item \textbf{count:} the amount of MQTT topics in the topic group.
+	\item \textbf{topicNamePattern:} a regular expression to deterministically create individual Topic names for every Topic of the Topic Group.
+	\item \textbf{count:} the amount of Topics in the Topic Group.
 \end{itemize}
 
 \section{Subscriptions} \label{sec:subscriptions}
-\begin{lstlisting}[caption={example for the XML definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
+\begin{lstlisting}[caption={Example for the XML definition of Subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
 <scenario>
 	<subscriptions>
 		<subscription id="sub-1">
@@ -134,18 +134,22 @@ A Subscription can either target Topics that match a specific Topic Filter or a 
 To define a Topic Group the user needs to specify:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the Subscription.
+\end{itemize}
+and either
+\begin{itemize}
 	\item \textbf{topicFilter:} the Topic Filter to target specific Topics.
 \end{itemize}
-or
+or instead
 \begin{itemize}
-	\item \textbf{id:} the identifier to reference the Subscription.
 	\item \textbf{topicGroup:} reference to a Topic Group.
-	\item \textbf{wildCard:} When true the topic name pattern of the Topic Group is analysed and all expandable regex are replaced with single level wildcards ("+"). 
-	The regex must contain an expandable topic level separator ("/")
+	\item \textbf{wildCard (default=false):} when true, the Subscription matches all Topics that are part of the referenced Topic Group.
+	This is done by analysing the Topic name pattern of the referenced Topic Group and replacing all expandable regex with MQTT single level wildcards ("+")
+	(therefore the regex must not contain an expandable topic level separator ("/")).
+	When false, the Topics of the referenced Topic Group are partitioned over all MQTT clients of a Client Group that uses the Subscription.
 \end{itemize}
 
 \section{Wait Patterns} \label{sec:waitPatterns}
-\begin{lstlisting}[caption={example for the XML definition of waitPatterns}, captionpos=b, label={lst:waitPatterns}, language=XML]
+\begin{lstlisting}[caption={Example for the XML definition of Wait Patterns}, captionpos=b, label={lst:waitPatterns}, language=XML]
 <scenario>
 	<waitPatterns>
 		<waitPattern id="waitPattern-1">
@@ -157,7 +161,7 @@ or
 	</waitPatterns>
 </scenario>
 \end{lstlisting}
-A Wait Pattern enables the user to model waiting behaviours where MQTT clients waits for receiving the messages of a Subscription (see \ref{sec:subscriptions}) before executing other Commands.
+A Wait Pattern enables the user to model waiting behaviours where MQTT clients expect to receive messages of a Subscription (see \ref{sec:subscriptions}) before executing other Commands.
 As seen in the example above, the following parameters need to be specified:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the Wait Pattern.
@@ -166,7 +170,7 @@ As seen in the example above, the following parameters need to be specified:
 \end{itemize}
 \newpage
 \section{Stages and Lifecycles}
-\begin{lstlisting}[caption={example for the XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
+\begin{lstlisting}[caption={Example for the XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
 <scenario>
 	<stages>
 		<stage id="s1" expectedDuration="10s">
@@ -183,55 +187,60 @@ As seen in the example above, the following parameters need to be specified:
 \end{lstlisting}
 A Scenario is divided into one or more Stages.
 These Stages are sequentially executed in the order in which they are specified in the XML document.
-A Stage contains a number of Lifecycles, which specify the behaviour of Client Groups in the stage.
-Lifecycles within a stage are executed in parallel.
+A Stage contains a number of Lifecycles, which specify the behaviour of Client Groups in the Stage.
+Lifecycles within a Stage are executed in parallel.
 To define a stage the user needs to specify:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the Stage.
-	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed by the whole Client Group. Used for reporting
+	\item \textbf{expectedDuration (optional):} the expected amount of time the Stage takes to be executed. This is useful to specify timing requirements and is used for reporting.
 \end{itemize}
 A Lifecycle contains an amount of Commands (see \ref{sec:commands}) which are assigned to be executed by a certain Client Group.
 To define a Lifecycle the user needs to specify:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the Lifecycle.
 	\item \textbf{clientGroupId:} the Client Group that executes the Commands in this Lifecycle.
+	\item \textbf{expectedDuration (optional):} the expected amount of time the Lifecycle takes to be executed. This is similar to the expected duration of a Stage but only for a specific Lifecycle.
 \end{itemize}
 \newpage
 \section{Commands}\label{sec:commands}
-Commands are executed by Client Groups.
-Going into detail this means that the Command is executed by every client in the Client Group.
+Commands are executed per Client Group.
+Going into detail this means that a Command is executed by every MQTT client in the Client Group.
 Commands are contained in Lifecycles, which are assigned to Client Groups.
 
-\subsection{connect}
-\begin{lstlisting}[caption={example for the XML definition of a connect Command}, captionpos=b, label={lst:connect}, language=XML]
+\subsection{Connect}
+\begin{lstlisting}[caption={Example for the XML definition of a Connect Command}, captionpos=b, label={lst:connect}, language=XML]
 <connect broker="b1" expectedDuration="10s"/>
 \end{lstlisting}
-The connect command gives an order the Client Group to connect to a broker.
+The Connect Command will connect every MQTT client of the Client Group to a broker.
 It has the following parameters:
 \begin{itemize}
-	\item \textbf{broker (required):} the broker the Client Group connects to.
-	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed by the whole Client Group. Used for reporting.
+	\item \textbf{broker:} the broker the Client Group connects to.
+	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
 
-\subsection{disconnect}
-\begin{lstlisting}[caption={example for the XML definition of a disconnect Command}, captionpos=b, label={lst:disconnect}, language=XML]
+\subsection{Disconnect}
+\begin{lstlisting}[caption={Example for the XML definition of a Disconnect Command}, captionpos=b, label={lst:disconnect}, language=XML]
 <disconnect/>
 \end{lstlisting}
-A disconnect Command does not have any parameters.
 The Client Group disconnects from the broker it is connected to.
+The Scenario is validated upfront to only allow sane combinations of Connect and Disconnect Commands.
+The Disconnect Command only has the following parameter:
+\begin{itemize}
+	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
+\end{itemize}
 
-\subsection{publish}
-\begin{lstlisting}[caption={example for the XML definition of a publish Commmand}, captionpos=b, label={lst:publish}, language=XML]
+\subsection{Publish}
+\begin{lstlisting}[caption={Example for the XML definition of a Publish Commmand}, captionpos=b, label={lst:publish}, language=XML]
 <publish topicGroup="tg1" count="10" message="message" rate="100/1s"/>
 <publish topicGroup="tg1" message="10" payloadGenerator="randomAlphaNumeric"/>
 <publish topicGroup="tg1" message="{{clientId}}" payloadGenerator="mustache"/>
 <publish topicGroup="tg1" message="payload[0-9]{10}" payloadGenerator="regex"/>
 \end{lstlisting}
-A publish Command gives an order the Client Group to publish messages.
+A Publish Command gives an order to the Client Group to publish messages.
 It has the following parameters:
 \begin{itemize}
-	\item \textbf{topicGroup (required):} references the Topic Group the message is published to (see \ref{sec:topicGroups}). 
-	\item \textbf{message (optional):} the argument for the payloadGenerator.
+	\item \textbf{topicGroup:} references the Topic Group the messages are published to (see \ref{sec:topicGroups}). 
+	\item \textbf{message:} the argument for the payloadGenerator.
 	\item \textbf{payloadGenerator (optional):} the generator for the payload that is sent within the message. The following options exist:
 		\begin{itemize}
 			\item \textbf{randomAlphaNumeric:} generates random alpha numeric strings as payloads.
@@ -239,69 +248,71 @@ It has the following parameters:
 			\item \textbf{mustache:} generates payloads based on a mustache.js template given in the message parameter.
 			\item \textbf{regex:} generates payloads based on a regex pattern given in the message parameter.
 		\end{itemize}
-	\item \textbf{qos (optional):} the quality of service.
-	\item \textbf{waitForACK (optional):} whether the Client Group waits for the ACK from the broker.
-	\item \textbf{count (required when a rate is given):} the amount of publishes for every client in the Client Group to execute.
-	\item \textbf{rate (optional):} the rate at witch the publishes are executed.
-	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+	\item \textbf{qos (optional, default=0):} the MQTT Quality of Service level the messages are published with. Possible values: 0, 1 and 2
+	\item \textbf{waitForAck (optional, default=false):} whether the Client Group waits for the acknowledgement of the message from the broker before continuing to publish the next message.
+	\item \textbf{count (default=1):} the amount of messages every MQTT client in the Client Group publishes.
+	\item \textbf{rate (optional):} the rate at witch the MQTT clients publish the messages. If waitForAck is true and waiting for the acknowledgement exceeds a rate interval, the next message is published immediately after the previous one is acknowledged.
+	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
-\newpage
-\subsection{subscribe}
-\begin{lstlisting}[caption={example for the XML definition of a subscibe Command}, captionpos=b, label={lst:subscirbe}, language=XML]
+
+\subsection{Subscribe}
+\begin{lstlisting}[caption={Example for the XML definition of a Subscibe Command}, captionpos=b, label={lst:subscirbe}, language=XML]
 <subscribe subscription="sub1" qos="1"/>
 \end{lstlisting}
-A subscribe Command gives an order the Client Group to subscribe.
+A Subscribe Command gives an order to the Client Group to subscribe.
 It has the following parameters:
 \begin{itemize}
-	\item \textbf{subscription (required):} references the Subscription to be executed (see \ref{sec:subscriptions}).
-	\item \textbf{qos (optional):} the quality of service.
-	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+	\item \textbf{subscription:} references the Subscription to be executed (see \ref{sec:subscriptions}).
+	\item \textbf{qos (optional, default=2):} the maximum MQTT Quality of Service level with which the matching publish messages are consumed.
+	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
 
-\subsection{unsubscribe}
-\begin{lstlisting}[caption={example for the XML definition of a unsubscibe Command}, captionpos=b, label={lst:unsubscirbe}, language=XML]
+\subsection{Unsubscribe}
+\begin{lstlisting}[caption={Example for the XML definition of a Unsubscibe Command}, captionpos=b, label={lst:unsubscirbe}, language=XML]
 <unsubscribe subscription="sub1"/>
 \end{lstlisting}
-A unsubscribe Command gives an order the Client Group to unsubscribe.
+A Unsubscribe Command gives an order to the Client Group to unsubscribe.
 It has the following parameters:
 \begin{itemize}
-	\item \textbf{subscription (required):} references the Subscription to be terminated (see \ref{sec:subscriptions}).
-	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+	\item \textbf{subscription:} references the Subscription to be terminated (see \ref{sec:subscriptions}).
+	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
 
-\subsection{wait}
-\begin{lstlisting}[caption={example for the XML definition of a wait Command}, captionpos=b, label={lst:wait}, language=XML]
+\subsection{Wait}
+\begin{lstlisting}[caption={Example for the XML definition of a Wait Command}, captionpos=b, label={lst:wait}, language=XML]
 <wait waitPattern="wp1" duration="10s"/>
 \end{lstlisting}
-A wait Command gives an order a Client Group to wait before executing the following Commands.
-It has the following parameter:
+A Wait Command gives an order to the Client Group to wait before executing the following Commands.
+It has the following parameters:
 \begin{itemize}
-	\item \textbf{waitPattern (optional):} references the Wait Pattern (see \ref{sec:waitPatterns}) to waited for.
+	\item \textbf{waitPattern (optional):} references the Wait Pattern (see \ref{sec:waitPatterns}) for messages the MQTT clients expect to receive.
 	\item \textbf{duration (optional):} the amount of time to wait.
-	\item \textbf{expectedDuration: (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+	\item \textbf{expectedDuration: (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
-If both a Wait Pattern and a duration are given the following Commands are executed after either the duration is exceeded or the Wait Pattern has matched.
+If both a Wait Pattern and a duration are given, the following Commands are executed after either the Wait Pattern has matched or the duration is exceeded.
 
-\subsection{for}
-\begin{lstlisting}[caption={example for the XML definition of a for Command}, captionpos=b, label={lst:for}, language=XML]
+\subsection{For}
+\begin{lstlisting}[caption={Example for the XML definition of a For Command}, captionpos=b, label={lst:for}, language=XML]
 <for times="2">
 	<connect broker="b1"/>
 	<disconnect/>
 </for>
 \end{lstlisting}
-A for Command gives an order the Client Group to execute the inner Commands multiple times.
+A For Command gives an order to the Client Group to execute the inner Commands multiple times.
 It has the following parameters:
 \begin{itemize}
 	\item \textbf{times:} the amount of times the inner Commands are executed.
 	\item \textbf{rate (optional):} the rate at which the inner Commands are executed.
-	\item \textbf{expectedDuration: (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
+	If the inner Commands take longer to execute than a rate interval, the next iteration is executed immediately after the previous one finished.
+	\item \textbf{expectedDuration: (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
 
-\subsection{rampUp}
-\begin{lstlisting}[caption={example for the XML definition of a rampUp Command}, captionpos=b, label={lst:rampUp}, language=XML]
+\subsection{RampUp}
+\begin{lstlisting}[caption={Example for the XML definition of a RampUp Command}, captionpos=b, label={lst:rampUp}, language=XML]
 <rampUp duration="10s"/>	
 \end{lstlisting}
-The Client Group executes the following Commands of the Lifecycle in a staggered manner.
+\vspace{-5pt}
+The Client Group executes Commands following a RampUp Command in a staggered manner.
 \begin{itemize}
 	\item \textbf{duration:} the amount of time the rampUp takes.
 \end{itemize}
