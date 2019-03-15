@@ -37,7 +37,7 @@ They are output in the order in which the Commands were defined in the Scenario.
 With the exception of nested Commands, where the metrics of the inner Commands are output before those of the outer Command.
 An example is given in figure \ref{lst:CommandReport}.
 
-\begin{lstlisting}[caption={Example for a Commands Report}, captionpos=b, label={lst:CommandReport}, language=]
+\begin{lstlisting}[caption={Excerpt from a Commands Report}, captionpos=b, label={lst:CommandReport}, language=]
 -------------- Commands  Report --------------
 Publish{[...]}
 For{times=5}={[...]}
@@ -49,7 +49,7 @@ The Actions Report allows for a more precise analysis of the Scenario than the C
 This is due to the fact that the Actions Report does not aggregate the metrics of nested Commands like the For Command.
 Instead it outputs all iterations contained in the For Command separately.
 This difference becomes clear when comparing figure \ref{lst:CommandReport} and \ref{lst:ActionReport}.
-\begin{lstlisting}[caption={Excerpt from Actions Report}, captionpos=b, label={lst:ActionReport}, language=]
+\begin{lstlisting}[caption={Excerpt from a Actions Report}, captionpos=b, label={lst:ActionReport}, language=]
 -------------- Actions  Report ---------------
 Publish{[...]}
 Publish{[...]}
