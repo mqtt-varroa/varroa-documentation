@@ -71,4 +71,7 @@ The DSL adheres to the following grammar:
 	
 	<commands> := <command>
 				\alt <command><commands>
+	<command> := <connect> \alt <disconnect> \alt <for> \alt <publish> \alt <rampUp> \alt <subscribe> \alt <unsubscribe> \alt <wait>
+	
+	<for> := <commands> \alt <empty>
 \end{grammar}
