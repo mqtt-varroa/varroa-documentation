@@ -31,7 +31,7 @@ The DSL adheres to the following grammar:
 	
 	<clientGroup>  :=   <clientGroupAttributes>
 
-	<topicGroups> := 	<topicGroup><moreTopicGroups>
+	<topicGroups> := 	<topicGroup> <moreTopicGroups>
 						\alt <topicGroup>
 						
 	<moreTopicGroups> := <topicGroup> <moreTopicGroups>
@@ -39,7 +39,7 @@ The DSL adheres to the following grammar:
 						
 	<topicGroup>  :=    <topicGroupAttributes>
 
-	<subscriptions> :=		<subscription><moreSubscriptionsGroups>
+	<subscriptions> :=		<subscription> <moreSubscriptionsGroups>
 							\alt <subscription>
 	
 	<moreSubscriptionsGroups> := 	<subscription> <moreSubscriptionsGroups>
@@ -70,7 +70,7 @@ The DSL adheres to the following grammar:
 	<lifeCycle>  := <commands>
 	
 	<commands> := <command>
-				\alt <command><commands>
+				\alt <command> <commands>
 	<command> := <connect> \alt <disconnect> \alt <for> \alt <publish> \alt <rampUp> \alt <subscribe> \alt <unsubscribe> \alt <wait>
 	
 	<for> := <commands> \alt <empty>
