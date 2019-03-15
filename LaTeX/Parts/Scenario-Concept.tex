@@ -1,4 +1,4 @@
-\chapter{Scenario Concept}\label{sec:ScenarioConcept}\vspace{-5pt}
+\chapter{Scenario Concept}\label{sec:ScenarioConcept}\vspace{-20pt}
 A Varroa test is the execution of a user defined Scenario, which is specified in a XML file.
 To define a valid scenario the user needs to define the topology of the Scenario and the behaviour of its components.
 A formal definition of the structure of the Scenario definition is given in Appendix \ref{sec:ScenarioDomainSpecificLanguage}.
@@ -73,7 +73,7 @@ When defining a Client Group the user needs to specify:
 	\item \textbf{count:} the amount of MQTT clients contained in the Client Group.
 	\item \textbf{mqtt:} MQTT properties of the MQTT clients (see \lstlistingname{} \ref{lst:mqttProperties}).
 	\begin{itemize}
-		\item \textbf{version (requrired):} the MQTT version this Client Group implements.
+		\item \textbf{version (required):} the MQTT version this Client Group implements.
 		%TODO \item \textbf{cleanStart (optional):} 
 		%TODO \item \textbf{sessionExpiryInterval (optional):}
 	\end{itemize}
@@ -164,7 +164,7 @@ As seen in the example above, the following parameters need to be specified:
 	\item \textbf{subscription:} the Subscription the Wait Pattern targets.
 	\item \textbf{messagePattern (optional):} the message pattern that is waited for on the targeted Subscription.
 \end{itemize}
-
+\newpage
 \section{Stages and Lifecycles}
 \begin{lstlisting}[caption={example for the XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
 <scenario>
@@ -196,18 +196,11 @@ To define a Lifecycle the user needs to specify:
 	\item \textbf{id:} the identifier to reference the Lifecycle.
 	\item \textbf{clientGroupId:} the Client Group that executes the Commands in this Lifecycle.
 \end{itemize}
-
+\newpage
 \section{Commands}\label{sec:commands}
 Commands are executed by Client Groups.
 Going into detail this means that the Command is executed by every client in the Client Group.
 Commands are contained in Lifecycles, which are assigned to Client Groups.
-
-
-\begin{grammar}
-	
-	
-	
-\end{grammar}
 
 \subsection{connect}
 \begin{lstlisting}[caption={example for the XML definition of a connect Command}, captionpos=b, label={lst:connect}, language=XML]
@@ -252,7 +245,7 @@ It has the following parameters:
 	\item \textbf{rate (optional):} the rate at witch the publishes are executed.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this action takes to be executed by the whole Client Group. Used for reporting.
 \end{itemize}
-
+\newpage
 \subsection{subscribe}
 \begin{lstlisting}[caption={example for the XML definition of a subscibe Command}, captionpos=b, label={lst:subscirbe}, language=XML]
 <subscribe subscription="sub1" qos="1"/>
