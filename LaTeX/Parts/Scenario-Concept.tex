@@ -1,9 +1,30 @@
 \chapter{Scenario Concept}\label{sec:ScenarioConcept}
-
+\setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
 %\begin{lstlisting}[caption={Implementierung des Trainierens der Markov-Chain}, captionpos=b, label={lst:train}, language=XML]
 % <!-- -->
 %\end{lstlisting}
 
+A Varroa test is the execution of a user defined Scenario, which is specified in a XML file.
+To define a valid scenario the user needs to define the topology of the Scenario and the behaviour of its components.
+
+For the description of a scenario Varroa uses a small Domain Specific Language, which is realized in XML and adheres to the following grammar:
+\begin{grammar}
+	<scenario> := 				<descriptors><stages>
+	
+	<descriptors> :=			<requiredDescriptors><optionalDescriptors>
+	
+	<requiredDescriptors> := 	<broker><clientGroups><topicGroups>
+	
+	<optionalDescriptors> := 	<subscriptions><waitPatterns>
+								\alt <subscriptions>
+								\alt <waitPatterns>
+								\alt <empty>
+\end{grammar}
+
+More exact definition of the productions will be given further along this chapter. As the default implementation of the Varroa DSL is in XML most productions start with a opening XML tag and end with a closing XML tag. For brevity these are not explicitly described in the grammar.
+
+An example for the outline of a Scenario XML file is given in \ref{lst:scenario}.
 
 \begin{lstlisting}[caption={example for the XML definition of the Scenario}, captionpos=b, label={lst:scenario}, language=XML]
 <scenario>
@@ -33,11 +54,12 @@
 </scenario>
 \end{lstlisting}
 
-A Varroa test is the execution of a user defined Scenario, which is specified in a XML file.
-To define a valid scenario the user needs to define the topology of the Scenario and the behaviour of its components.
-An example for the outline of a Scenario XML file is given in \ref{lst:scenario}.
-
 \section{Broker}
+
+\begin{grammar}
+	<broker> := <brokerAttributes>
+\end{grammar}
+
 \begin{lstlisting}[caption={example for the XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
 <scenario>
 	<broker id="b1">
@@ -55,6 +77,17 @@ For this the user needs to define:
 \end{itemize}
 
 \section{Client Groups}
+
+\begin{grammar}
+	<clientGroups> := 	<clientGroup> <moreClientGroups>
+						\alt <clientGroup>
+						
+	<moreClientGroups> := <clientGroup> <moreClientGroups>
+							\alt <clientGroup>
+	
+	<clientGroup>  :=   <clientGroupAttributes>
+\end{grammar}
+
 \begin{lstlisting}[caption={example for the XML definition of Client Groups}, captionpos=b, label={lst:clientGroups}, language=XML]
 <scenario>
 	<clientGroups>
@@ -84,7 +117,7 @@ When defining a Client Group the user needs to specify:
 		%TODO \item \textbf{sessionExpiryInterval (optional):}
 	\end{itemize}
 \end{itemize}
-\ 
+
 \begin{lstlisting}[caption={example for the XML definition of MQTT properties}, captionpos=b, label={lst:mqttProperties}, language=XML]
 <mqtt>
 	<version>5</version>
@@ -97,6 +130,15 @@ When defining a Client Group the user needs to specify:
 
 
 \section{Topic Groups} \label{sec:topicGroups}
+\begin{grammar}
+	<topicGroups> := 	<topicGroup><moreTopicGroups>
+						\alt <topicGroup>
+						
+	<moreTopicGroups> := <topicGroup> <moreTopicGroups>
+						\alt <topicGroup>
+						
+	<topicGroup>  :=    <topicGroupAttributes>
+\end{grammar}
 \begin{lstlisting}[caption={example for the XML definition of Topic Groups}, captionpos=b, label={lst:topicGroups}, language=XML]
 <scenario>
 	<topicGroups>
@@ -119,6 +161,16 @@ When defining a Topic Group the user needs to specify:
 \end{itemize}
 
 \section{Subscriptions} \label{sec:subscriptions}
+\begin{grammar}
+	<subscriptions> :=		<subscription><moreSubscriptionsGroups>
+							\alt <subscription>
+	
+	<moreSubscriptionsGroups> := 	<subscription> <moreSubscriptionsGroups>
+							\alt <subscription>
+	
+	<subscription>  :=		<dynamicSubscription>
+							\alt <topicFilter>
+\end{grammar}
 \begin{lstlisting}[caption={example for the XML definition of subscriptions}, captionpos=b, label={lst:subscriptions}, language=XML]
 <scenario>
 	<subscriptions>
@@ -152,6 +204,15 @@ or
 \end{itemize}
 
 \section{Wait Patterns} \label{sec:waitPatterns}
+\begin{grammar}
+	<waitPatterns> := <waitPattern> <moreWaitPatterns>
+						\alt <waitPattern>
+						
+	<moreWaitPatterns> := <waitPattern> <moreWaitPatterns>
+						\alt <waitPattern>
+						
+	<waitPattern>	:= <waitPatternAttrinutes>
+\end{grammar}
 \begin{lstlisting}[caption={example for the XML definition of waitPatterns}, captionpos=b, label={lst:waitPatterns}, language=XML]
 <scenario>
 	<waitPatterns>
@@ -173,6 +234,23 @@ As seen in the example above, the following parameters need to be specified:
 \end{itemize}
 
 \section{Stages and Lifecycles}
+\begin{grammar}
+	<stages> := <stage> <moreStages>
+				\alt <stage>
+				
+	<moreStages> := <stage> <moreStages>
+					\alt <stage>
+					
+	<stage>		:= <lifeCycles>
+	
+	<lifeCycles> := <lifeCycle> <moreLifeCycles>
+				\alt <lifeCycle>
+				
+	<lifeCycle>  := <commands>
+	
+	<commands> := <command>
+			\alt <command><commands>
+\end{grammar}
 \begin{lstlisting}[caption={example for the XML definition of Stages}, captionpos=b, label={lst:stages}, language=XML]
 <scenario>
 	<stages>
@@ -209,19 +287,8 @@ Commands are executed by Client Groups.
 Going into detail this means that the Command is executed by every client in the Client Group.
 Commands are contained in Lifecycles, which are assigned to Client Groups.
 
-The structure of Stages, Lifecycles and Commands is described by a small Domain Specific Language which adheres to the following grammar:
 
-\setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
-\setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
 \begin{grammar}
-	<stages> ::= <lifecycles>
-	\alt <lifecycles><stages>
-	
-	<lifecycles> ::= <commands>
-	\alt <commands><lifecycles>
-	
-	<commands> := <command>
-	\alt <command><commands>
 	
 	<command> := <connect> \alt <disconnect> \alt <for> \alt <publish> \alt <rampUp> \alt <subscribe> \alt <unsubscribe> \alt <wait>
 	
