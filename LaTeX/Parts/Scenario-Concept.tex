@@ -259,9 +259,9 @@ As seen in the example above, the following parameters need to be specified:
 <scenario>
 	<stages>
 		<stage id="s1" expectedDuration="10s">
-			<lifecycle id="s1.l1" clientGroupId="cg1">
+			<lifeCycle id="s1.l1" clientGroupId="cg1">
 				<!-- definition of commands -->
-			</lifecycle>
+			</lifeCycle>
 	
 			<!-- definition of more lifecycles -->
 		</stage>
@@ -399,7 +399,7 @@ It has the following parameters:
 \begin{lstlisting}[caption={example for the XML definition of a rampUp Command}, captionpos=b, label={lst:rampUp}, language=XML]
 <rampUp duration="10s"/>	
 \end{lstlisting}
-The Client Group executes the following Commands of the lifecycle in a staggered manner.
+The Client Group executes the following Commands of the Lifecycle in a staggered manner.
 \begin{itemize}
 	\item \textbf{duration:} the amount of time the rampUp takes.
 \end{itemize}
