@@ -14,15 +14,19 @@ For the description of a scenario Varroa uses a small Domain Specific Language, 
 	
 	<descriptors> :=			<requiredDescriptors><optionalDescriptors>
 	
-	<requiredDescriptors> := 	<broker><clientGroups><topicGroups>
+	<requiredDescriptors> := 	<broker><clientGroups>
 	
-	<optionalDescriptors> := 	<subscriptions><waitPatterns>
+	<optionalDescriptors> := 	<topicGroups><subscriptions><waitPatterns>
+								\alt <topicGroups><subscriptions>
+								\alt <topicGroups><waitPatterns>
+								\alt <subscriptions><waitPatterns>
+								\alt <topicGroups>
 								\alt <subscriptions>
 								\alt <waitPatterns>
 								\alt <empty>
 \end{grammar}
 
-More exact definition of the productions will be given further along this chapter. As the default implementation of the Varroa DSL is in XML most productions start with a opening XML tag and end with a closing XML tag. For brevity these are not explicitly described in the grammar.
+More exact definitions of the productions will be given further along this chapter. As the default implementation of the Varroa DSL is in XML most productions start with a opening XML tag and end with a closing XML tag. For brevity these are not explicitly described in the grammar.
 
 An example for the outline of a Scenario XML file is given in \ref{lst:scenario}.
 
