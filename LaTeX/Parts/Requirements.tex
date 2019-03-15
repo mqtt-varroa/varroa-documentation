@@ -4,23 +4,23 @@ Additionally it is indicated whether and how they are currently implemented.
 
 \section{Non-Functional Requirements}
 
-\paragraph{Transparency (Must Have High)}\label{sec:Transparency}
+\paragraph{Transparency (Must Have High)}
 \emph{Varroa has to be comprehensible for the user.}
 
 This requirement is fulfilled.
 Varroa implements expressive logging with configurable levels and outputs.
-This enables a rich insight in the execution process of a Varroa test.
+This enables a rich insight into the execution process of Varroa.
 
 \paragraph{10.000.000 MQTT Clients (Must Have High)} 
 \emph{Varroa has to be able to generate a large amount of clients.}
 
-The fulfilment of this requirement is not verified yet.
+Even though we can generate large amounts of clients already, we did not verify the 10.000.000 benchmark yet.
 
 \paragraph{Scalability (Must Have)} 
 \emph{Varroa should scale vertically with relatively low scaling costs.}
 
 This requirement is fulfilled.
-To do so Varroa is organised as a distributed System and can easily be extended with new instances running as Agents.
+To do so Varroa is organised as a distributed system and can easily be extended with new instances running as Agents.
 
 \paragraph{Determinism (Must Have)} 
 \emph{Varroa has to work in deterministic ways, meaning it should produce the same result for the same Scenario every time.}
@@ -29,10 +29,10 @@ This requirement is fulfilled.
 To guarantee this determinism several measures are taken, ensuring deterministic distribution and execution of a Scenario (see chapter \ref{sec:Architecture}).
 
 \paragraph{Distributed (Must Have Low)} 
-\emph{Varroa is a distributed System.}
+\emph{Varroa is a distributed system.}
 
 This requirement is fulfilled.
-Varroa is organized as a distributed System.
+Varroa is organized as a distributed system.
 It is composed of a Commander and multiple Agents.
 These components can be run on separate machines. 
  
@@ -40,15 +40,16 @@ These components can be run on separate machines.
 \emph{Varroa has to be easily usable.}
 
 This requirement is fulfilled.
-The user can easily define custom Scenarios as XML files and execute them (see chapter \ref{sec:ScenarioConcept} and \ref{sec:Execution}).
+The user can easily define custom Scenarios as XML files supported by XSD validation and execute them (see chapter \ref{sec:ScenarioConcept} and \ref{sec:Execution}).
 
 \paragraph{Code Quality (Important)} 
 \emph{Varroa's code quality should be very high.}
 
 This requirement is fulfilled.
-To ensure high code quality several measures are taken.
-An example for these measures is the consequent use of nullability as well as broad test code coverage. 
-Also before new code could be added to the master branch it was reviewed by another team member.
+To ensure high code quality multiple measures are taken.
+An example for these measures is the consequent use of nullability annotations as well as broad test code coverage. 
+Also we followed strict rules regarding code reviews.
+Before new code was merged into the master branch it had to be reviewed by another team member.
 
 \paragraph{Stability (Important)} 
 \emph{Varroa has to run in a stable manner.}
@@ -58,25 +59,25 @@ Stability is ensured by the use of integration tests and general unit tests.
 
 \paragraph{Resource efficiency (Important)} 
 \emph{Varroa has to use the available computation and memory resources efficiently.}
-%TODO how was this verified.
+
+Resource efficiency was proven while testing Varroa, as it only used a fraction of the attacked broker's RAM usage.
 
 \paragraph{User / Developer Guide (Somewhat Important)} 
 \emph{Varroa needs a User / Developer Guide.}
 
 This requirement is fulfilled.
-The documentation educates the user on the definition of a custom scenario as well as the execution of it on his Varroa Distributed System (\ref{sec:ScenarioConcept} and \ref{sec:Execution}).
+The documentation educates the user on the construction of a custom Scenario as well as the execution of it on a Varroa Distributed System (see \ref{sec:ScenarioConcept} and \ref{sec:Execution}).
 
 \paragraph{Automation capacity (Somewhat Important)} 
 \emph{Varroa should be automatable.}
 
-%TODO Docker.
-%TODO is this fulfilled? 
+This requirement is partially fulfilled. It can be automated by an external script.
 
 \paragraph{User Interface}
-\emph{Varroa should have a well designed user interface with high usability.}
+\emph{Varroa should have a usable user interface.}
 
 This requirement is fulfilled.
-The user can interact with Varroa using a command line interface.
+The user can interact with Varroa using a command line interface or using Kubernetes.
 
 \paragraph{Multi Platform Support (Nice To Have)}
 \emph{Varroa should run on multiple platforms.}
@@ -85,13 +86,13 @@ This requirement is fulfilled.
 Due to the utilisation of Docker, Varroa can run on several platforms (see chapter \ref{sec:Execution}).
 
 \section{Functional Requirements}
-The following sections list the non-functional requirements and their respective priorities.
+The following sections list the functional requirements and their respective priorities.
 
 \paragraph{Scenarios (Must Have High)}
 \emph{Varroa must be able to execute user defined MQTT Scenarios.}
 
 This requirement is fulfilled.
-Varroa has the ability to parse and execute Scenarios, according to the concept explained in chapter \ref{sec:ScenarioConcept}.
+Varroa has the ability to parse and execute Scenarios, according to the concept explained in Chapter \ref{sec:ScenarioConcept}.
 
 \paragraph{MQTT Specification Confirmity (Must Have High)}
 \emph{Varroa must conform to the MQTT specification.}
@@ -104,34 +105,34 @@ The library ensures specification conformity in both MQTT version 3 and MQTT ver
 \emph{Varroa has to support all transports that are possible in MQTT.}
 
 This requirement is not fulfilled.
-Currently Varroa does not support websockets.
+Currently Varroa does not support WebSockets.
 
 \paragraph{Reports (Must Have)}
 \emph{Varroa has to report the findings of the testing process.}
 
-This requirement is fulfilled.
-Varroa supports reporting findings of tests (see \ref{sec:Reporting})
+This requirement is fulfilled (see Chapter \ref{sec:Reporting}).
 
 \paragraph{User Feedback (Must Have Low)}
-\emph{Varroa has to give user feedback during runtime.}
+\emph{Varroa has to give users feedback during runtime.}
 
-This requirement is fulfilled (see \ref{sec:Transparency}).
+This requirement is fulfilled by extensive logging.
 
 \paragraph{Documentation (Very Important)}
 \emph{Varroa has to be documented. }
 
 This requirement is fulfilled.
-This document contains a user guide and briefly explains the architecture and inner workings of Varroa.
+This document contains a user guide and explains the architecture and inner workings of Varroa.
 
 \paragraph{Metrics (Very Important)}
 \emph{Varroa has to record and expose internal metrics.}
 
-This requirement is not fulfilled.
+This requirement is partially fulfilled.
+Varroa provides multiple metrics for the Scenario (see Section \ref{sec:metrics}) but not for internal processes.
 
 \paragraph{Deployment Convenience (Important)}
 \emph{Varroa must be easily deployable.}
 
-This requirement is fulfilled. Due to the use of Docker Varroa Instances can be easily started and so a Varroa Distributed System can be orchestrated without much configuration (see chapter \ref{sec:Execution}).
+This requirement is fulfilled. Due to the use of Docker Varroa Instances can be easily started and orchestrated without much configuration (see chapter \ref{sec:Execution}).
 
 \paragraph{Topology Change (Less important)}
 \emph{Varroa must be able to simulate changes to the network topology.}
@@ -144,8 +145,7 @@ It is not possible to simulate network level behaviour of the clients in the cur
 One for experienced users and one for unexperienced users.}
 
 This requirement is not fulfilled.
-Since Varroa does not have a graphical user interface in this version.
-Simple and Expert modes are not implemented.
+Since Varroa does not have a graphical user interface in this version, simple and expert modes are not implemented.
 
 
 \paragraph{Notifications (Nice To Have)}

@@ -26,9 +26,6 @@
 \input{Parts/Scenario-Concept.tex}
 \input{Parts/Reporting.tex}
 \input{Parts/Requirements.tex}
-\begin{appendix}
-\input{EBNF}
-\end{appendix}
 
 
 % Abbildungsverzeichnis generieren.
@@ -46,5 +43,10 @@
 %\renewcommand{\lstlistlistingname}{Listingverzeichnis}
 \addcontentsline{toc}{chapter}{\lstlistlistingname}
 \lstlistoflistings
+\clearpage
+\begin{appendix}
+\input{EBNF}
+\end{appendix}
+
 
 \end{document}
