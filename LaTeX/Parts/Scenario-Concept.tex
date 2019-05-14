@@ -209,13 +209,15 @@ Commands are contained in Lifecycles, which are assigned to Client Groups.
 
 \subsection{Connect}
 \begin{lstlisting}[caption={Example for the XML definition of a Connect Command}, captionpos=b, label={lst:connect}, language=XML]
-<connect broker="b1" expectedDuration="10s"/>
+<connect broker="b1" expectedDuration="10s" retries="10" retryInterval="20s"/>
 \end{lstlisting}
 The Connect Command will connect every MQTT client of the Client Group to a broker.
 It has the following parameters:
 \begin{itemize}
 	\item \textbf{broker:} the broker the Client Group connects to.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
+	\item \textbf{retries (optional):} the maximum amount of retries that will be performend when the connect fails
+	\item \textbf{retryInterval (optinal):} the time-span between connect attempts
 \end{itemize}
 
 \subsection{Disconnect}
