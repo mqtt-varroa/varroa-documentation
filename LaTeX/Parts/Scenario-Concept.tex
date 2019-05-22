@@ -231,7 +231,7 @@ The Disconnect Command only has the following parameter:
 
 \subsection{Publish}
 \begin{lstlisting}[caption={Example for the XML definition of a Publish Commmand}, captionpos=b, label={lst:publish}, language=XML]
-<publish topicGroup="tg1" count="10" message="message" rate="100/1s"/>
+<publish topicGroup="tg1" count="10" message="message" rate="100/1s" retain="true"/>
 <publish topicGroup="tg1" message="10" payloadGenerator="randomAlphaNumeric"/>
 <publish topicGroup="tg1" message="{{clientId}}" payloadGenerator="mustache"/>
 <publish topicGroup="tg1" message="payload[0-9]{10}" payloadGenerator="regex"/>
@@ -253,6 +253,7 @@ It has the following parameters:
 	\item \textbf{count (default=1):} the amount of messages every MQTT client in the Client Group publishes.
 	\item \textbf{rate (optional):} the rate at witch the MQTT clients publish the messages. If waitForAck is true and waiting for the acknowledgement exceeds a rate interval, the next message is published immediately after the previous one is acknowledged.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
+	\item \textbf{retain (default=false):} a flag to indicate that the PUBLISH messages are to be sent as retained messages. Used for reporting.
 \end{itemize}
 \newpage
 \subsection{Subscribe}
