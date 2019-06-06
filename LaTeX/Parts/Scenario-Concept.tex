@@ -258,12 +258,13 @@ It has the following parameters:
 \newpage
 \subsection{Subscribe}
 \begin{lstlisting}[caption={Example for the XML definition of a Subscibe Command}, captionpos=b, label={lst:subscirbe}, language=XML]
-<subscribe subscription="sub1" qos="1"/>
+<subscribe subscription="sub1 sub2" qos="1"/>
 \end{lstlisting}
 A Subscribe Command gives an order to the Client Group to subscribe.
 It has the following parameters:
 \begin{itemize}
-	\item \textbf{subscription:} references the Subscription to be executed (see \ref{sec:subscriptions}).
+	\item \textbf{subscription:} references the Subscriptions to be executed (see \ref{sec:subscriptions}). 
+	Note that multiple Subscriptions can be referenced, those need to be separeted by a whitespace.
 	\item \textbf{qos (default=2):} the maximum MQTT Quality of Service level with which the matching publish messages are consumed.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
@@ -275,7 +276,8 @@ It has the following parameters:
 A Unsubscribe Command gives an order to the Client Group to unsubscribe.
 It has the following parameters:
 \begin{itemize}
-	\item \textbf{subscription:} references the Subscription to be terminated (see \ref{sec:subscriptions}).
+	\item \textbf{subscription:} references the Subscriptions to be terminated (see \ref{sec:subscriptions}).
+	Note that multiple Subscriptions can be referenced, those need to be separeted by a whitespace.
 	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
 \end{itemize}
 
