@@ -214,8 +214,11 @@ Commands are contained in Lifecycles, which are assigned to Client Groups.
 The Connect Command will connect every MQTT client of the Client Group to a broker.
 It has the following parameters:
 \begin{itemize}
-	\item \textbf{broker:} the broker the Client Group connects to.
+	\item \textbf{broker (optional):} the brokers the Client Group connects to. The identifiers of multiple brokers are seperated by whitespaces.
+	If no broker is specified all brokers that are defined in the scenario are connected to. 
 	\item \textbf{expectedDuration (optional):} the expected amount of time this Action takes to be executed. Used for reporting.
+	\item \textbf{retries (optional): the amout of connection retries.}
+	\item \textbf{retryInterval (optional):} the amout of time between retry attempts. 
 \end{itemize}
 
 \subsection{Disconnect}
