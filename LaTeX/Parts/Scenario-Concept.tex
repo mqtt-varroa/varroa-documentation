@@ -31,17 +31,17 @@ An example for the outline of a Scenario XML file is shown in Listing \ref{lst:s
 </scenario>
 \end{lstlisting}
 
-\section{Broker}
+\section{Brokers}
 \begin{lstlisting}[caption={Example for the XML definition of the Broker}, captionpos=b, label={lst:broker}, language=XML]
-<scenario>
+<brokers>
 	<broker id="b1">
 		<address>broker.hivemq.com</address>
 		<port>1883</port>
 	</broker>
-</broker>
+</brokers>
 \end{lstlisting}
-The broker is the central component whose performance and stress resistance is tested by the Scenario.
-For this the user needs to define:
+The brokers are the central components whose performances and stress resistances are tested by the Scenario.
+To define a broker the user needs to specify:
 \begin{itemize}
 	\item \textbf{id:} the identifier to reference the broker.
 	\item \textbf{address:} the address of the broker can either be a IP-Address or a Fully-Qualified-Domain-Name.
